@@ -10,6 +10,7 @@ Using HTML attributes to make a DSL for a set of use cases that will just re-ren
 The primary reason is, why even go to the server for html components/fragments. Have either an internal router to do that work, or use a convention based approach. 
 
 ```
+// simple input and button. Clicking the button updates the input value.
 <section id="counter-placeholder">
     <h3>Click Counter Example</h3>
     <click-counter id="me-53">
@@ -22,6 +23,34 @@ The primary reason is, why even go to the server for html components/fragments. 
           au-state="processed">click me</button>
     </click-counter>
 </section>
+```
+
+```
+// click counter code.
+// I don't see how this would be any smaller in a server side language.
+import { idGen } from "../../src/index.js";
+import { html } from '../../src/utils/index.js'
+export const CLICK_COUNTER = 'click-counter'
+
+export class ClickCounter extends HTMLElement {
+  body: FormData;
+
+  connectedCallback() {
+    this.id = `me-${idGen.next().value}`
+    const previousCount = Number(this?.body?.get('counter') ?? 0)
+    const count = (previousCount + 1).toString()
+    const frag = html`
+      <input name='counter' value='${count}' />
+      <button
+        tf-trigger='click'
+        tf-post='${CLICK_COUNTER}'
+        tf-include='closest ${CLICK_COUNTER}'
+        tf-target='#${this.id}'>click me</button>
+    `
+    this.append(frag)
+  }
+}
+
 ```
 
 ## Motivation
