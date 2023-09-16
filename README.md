@@ -75,3 +75,6 @@ The only downside for me was, I don't need or want to do this on the server. My 
 I browsed through their docs, looked through their code and immediately started creating this. Four hours later I had my first few use cases working.
 
 At some point I need to take time and actually build an app with HTMX. But for now having too much fun putting this together.
+
+## The au- tag prefix
+No technical reason. I just liked it.
