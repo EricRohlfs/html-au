@@ -11,6 +11,7 @@ The primary reason is, why even go to the server for html components/fragments. 
 
 ```
 // simple input and button. Clicking the button updates the input value.
+// the rendered live html
 <section id="counter-placeholder">
     <h3>Click Counter Example</h3>
     <click-counter id="me-53">
@@ -42,10 +43,10 @@ export class ClickCounter extends HTMLElement {
     const frag = html`
       <input name='counter' value='${count}' />
       <button
-        tf-trigger='click'
-        tf-post='${CLICK_COUNTER}'
-        tf-include='closest ${CLICK_COUNTER}'
-        tf-target='#${this.id}'>click me</button>
+        au-trigger='click'
+        au-post='${CLICK_COUNTER}'
+        au-include='closest ${CLICK_COUNTER}'
+        au-target='#${this.id}'>click me</button>
     `
     this.append(frag)
   }
