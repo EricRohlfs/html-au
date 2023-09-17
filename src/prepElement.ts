@@ -186,15 +186,15 @@ function recurseNodes(node: HTMLElement) {
       if (mutation.target?.nodeType === 1 || mutation.target?.nodeType === 11) {
         recurseNodes(mutation.target as HTMLElement)
       }
-      mutation.addedNodes.forEach((node: HTMLElement) => {
-        console.log(node?.tagName)
-        if (node.nodeType === 1 || node.nodeType === 11) {
-          mutation.target.childNodes.forEach(child => {
-            recurseNodes(child as HTMLElement)
-          })
-        }
+      // mutation.addedNodes.forEach((node: HTMLElement) => {
+      //   console.log(node?.tagName)
+      //   if (node.nodeType === 1 || node.nodeType === 11) {
+      //     mutation.target.childNodes.forEach(child => {
+      //       recurseNodes(child as HTMLElement)
+      //     })
+      //   }
 
-      })
+      // })
     }
   };
 
