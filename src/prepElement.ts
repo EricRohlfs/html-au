@@ -11,6 +11,11 @@ function makeFormData(node: HTMLElement): FormData {
   // todo:get all form controls
   const inputs = node.querySelectorAll(':scope input')
   controls.push(...inputs)// might not want to spread here, but quick and easy
+  // todo: need to do other controls here
+  // is input so no children to query
+  if(node.tagName === 'INPUT'){
+    controls.push(node);
+  }
   const fd = new FormData()
   controls.forEach(ctrol => {
     fd.set(ctrol.name, ctrol.value)
@@ -100,7 +105,8 @@ export function prepElement(ele: HTMLElement) {
 
     //special input example with mattaching verb searchParam
     // todo: potentially expand this to multiple input types
-    //       for textarea may need to do that as post or do all as a post
+    // it might be better to do this as a post then no special code needed
+    // we would make this go away and encourage the use of post instead
     if(ele.tagName === 'INPUT'){
       // @ts-ignore
       if(auMeta.searchParams.get(ele?.name)){ 

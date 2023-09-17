@@ -23,8 +23,8 @@ export class HelloMessage extends HTMLElement{
 }
 
 export class HelloWorldDiv extends HTMLDivElement {
+  body:FormData
   connectedCallback(){
-    this.textContent = this.getAttribute('msg')
+    this.textContent = this.getAttribute('msg') ?? this.body?.get('msg')?.toString()
   }
-
 }
