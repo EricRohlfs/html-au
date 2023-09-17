@@ -21,3 +21,10 @@ export class HelloMessage extends HTMLElement{
     this.textContent = this.getAttribute('msg')
   }
 }
+
+export class HelloWorldDiv extends HTMLDivElement {
+  connectedCallback(){
+    this.textContent = this.getAttribute('msg')
+  }
+
+}

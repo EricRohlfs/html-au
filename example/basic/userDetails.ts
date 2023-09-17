@@ -1,4 +1,4 @@
-import { html, defineElement } from "src/utils/index.js"
+import { html } from "src/utils/index.js"
 
 export class UserDetailsForm extends HTMLFormElement {
   connectedCallback() {
@@ -14,6 +14,11 @@ export class UserDetailsForm extends HTMLFormElement {
   }
 }
 
+type userInfoModel = {
+  first_name: string
+  last_name: string
+}
+
 export class UserDetailsInfo extends HTMLElement {
   body: FormData // data is being passed into the component as FormData
   model = {
@@ -22,39 +27,49 @@ export class UserDetailsInfo extends HTMLElement {
   }
   connectedCallback() {
     if (this.body) {
-      this.model = Object.fromEntries(this.body) as { first_name: string, last_name: string }
+      this.model = Object.fromEntries(this.body) as userInfoModel
     }
     const frag = html`
-         <div id="first_name">${this.model.first_name}</div>
-         <div id="last_name">${this.model.last_name} </div>`
+      <div>
+        <span>First Name</span>
+        <span id="first_name">${this.model.first_name}</span>
+      </div>
+      <div>
+        <span>Last Name</span>
+        <span id="last_name">${this.model.last_name}<span>
+      </div>`
     this.append(frag)
   }
 }
 
-
-
-export class UserDetailsSingle extends HTMLFormElement{
-  body:FormData // data is being passed into the component as FormData
+export class UserDetailsSingle extends HTMLFormElement {
+  body: FormData // data is being passed into the component as FormData
   model = {
-    first_name:'',
-    last_name:''
+    first_name: '',
+    last_name: ''
   }
-  connectedCallback(){
-    if(this.body){
+  connectedCallback() {
+    if (this.body) {
       // @ts-ignore
       this.model = Object.fromEntries(this.body)
     }
     const frag = html`
       <div>
         <label>First Name
-          <input name='first_name' type='text'  value="${this.model.first_name}"/>
+          <input name='first_name' type='text' value='${this.model.first_name}'/>
         </label>
         <label> Last Name
-          <input name='last_name' type='text' value="${this.model.last_name}"/>
+          <input name='last_name' type='text' value='${this.model.last_name}'/>
         </label>
       </div>
-      <div>${this.model.first_name}</div>
-      <div>${this.model.last_name}</div>`
+      <div>
+        <span>First Name</span>
+        <span>${this.model.first_name}</span>
+      </div>
+      <div>
+        <span>Last Name</span>
+        <span>${this.model.last_name}<span>
+      </div>`
     this.append(frag)
   }
 }
