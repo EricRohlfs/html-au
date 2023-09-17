@@ -11,7 +11,7 @@ defineElement('user-details-info', UserDetailsInfo)
 defineElement('user-details-single', UserDetailsSingle, 'form')
 
 
-const hv = createElement<ClickCounter>({
+const hv = createElement<HomeView>({
   tagName:'home-view'
 })
 
