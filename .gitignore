@@ -1,0 +1,4 @@
+node_modules
+OrCarousel/node_modules
+coverage
+dist

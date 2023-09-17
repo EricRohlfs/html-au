@@ -1,0 +1,10 @@
+{
+  "exclude": ["test"],
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": false,
+    "declarationMap": false ,
+    "outDir": "./dist/browser",
+    "noEmit": false
+  }
+}
