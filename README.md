@@ -82,8 +82,8 @@ No technical reason. I just liked it.
 
 ```
 // I have not run this, but should give you enough of an idea of what is going on.
-// The update approach. User types in data, we update the divs below. 
-// This example is not too bad, but this is a simple example. Even so, few things could go wrong like misspelling selectors, ids, or input names. There are stratigies for this like using const, but still more work.
+// The update approach in custom elements (no htmx). A user enters data into the form, then the user sees their input in the divs below. 
+// This example is not too bad, but this is a simple example. Even so, few things could go wrong like misspelling selectors, ids, or input names. There are stratigies for this like using const first_name='first_name', but why, when we could just re-render the entire info template.
 
 export class UserDetailsForm extends HTMLFormElement{
 
@@ -153,7 +153,8 @@ defineElement('user-details-form', UserDetailsForm, 'form')
 
 ```
 // html-au example
-// In reality these two components are so 
+// this might be overkill, I might not need two components, I bet I could just re-render the whole form with a little extra work. This is a good two component example then.
+
 export class UserDetailsForm extends HTMLFormElement{
   connectedCallback(){
     const frag = html`<div>
@@ -165,7 +166,7 @@ export class UserDetailsForm extends HTMLFormElement{
 }
 defineElement('user-details-form', UserDetailsForm, 'form')
 
-class UserDetailsInfo extends HTMLElement{
+class UserDetailsInfo extends HTMLElement {
   body:FormData // data is being passed into the component as FormData
   connectedCallback(){
     const model = Object.fromEntries(body)
@@ -188,4 +189,42 @@ defineElement('user-details', UserDetailsInfo)
   au-target="user-details"
 ></form>
 <user-details></user-details>
+```
+
+
+
+```
+// html-au example
+// as a single component 
+
+export class UserDetailsForm extends HTMLFormElement{
+  body:FormData // data is being passed into the component as FormData
+  model = {
+    first_name:'',
+    last_name:''
+  }
+  connectedCallback(){
+    if(this.body){
+      this.model = Object.fromEntries(body)
+    }
+    const frag = html`<div>
+        <input name='first_name' type='text' value="${this.model.first_name}"/>
+        <input name='last_name' type='text' value="${this.model.last_name}"/>
+      </div>
+      <div id="first_name">${this.model.first_name}</div>
+      <div id="last_name">${this.model.last_name} </div>`
+      `
+    this.append(frag)
+  }
+}
+
+
+// this html to create the components would be inside another component, or could be any html on the page.
+
+<form
+  is="user-details"
+  au-post="user-details"
+  au-trigger="input"
+  au-target="user-details"
+></form>
 ```

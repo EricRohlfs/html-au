@@ -30,3 +30,31 @@ export class UserDetailsInfo extends HTMLElement {
     this.append(frag)
   }
 }
+
+
+
+export class UserDetailsSingle extends HTMLFormElement{
+  body:FormData // data is being passed into the component as FormData
+  model = {
+    first_name:'',
+    last_name:''
+  }
+  connectedCallback(){
+    if(this.body){
+      // @ts-ignore
+      this.model = Object.fromEntries(this.body)
+    }
+    const frag = html`
+      <div>
+        <label>First Name
+          <input name='first_name' type='text'  value="${this.model.first_name}"/>
+        </label>
+        <label> Last Name
+          <input name='last_name' type='text' value="${this.model.last_name}"/>
+        </label>
+      </div>
+      <div>${this.model.first_name}</div>
+      <div>${this.model.last_name}</div>`
+    this.append(frag)
+  }
+}

@@ -24,14 +24,25 @@ export function prepElement(node: HTMLElement) {
   const auGet = target.getAttribute('au-get')
   const auPost = target.getAttribute('au-post')
   const parts = auGet?.split('?') ?? auPost?.split('?') ?? ['','']
-  const tagName = parts[0]
+  let tagName = parts[0]
+  let attributesThis = {}
+  let isThis = false;
+  if(tagName === 'this'){
+    isThis = true
+    tagName = target.tagName
+
+    for (const attr of target.attributes) {
+      attributesThis[attr.name] = attr.value
+    }
+  }
   const sp = new URLSearchParams(parts[1])
 
   target.addEventListener(trigger, (e) => {
-    const attributes = {}
+    const attributes = attributesThis
     for (const [key, value] of sp.entries()) {
       attributes[key] = value
     }
+    delete attributes['au-state']
 
     let properties = {}
     let fdNode = node;
@@ -52,10 +63,11 @@ export function prepElement(node: HTMLElement) {
       properties
     })
    
-    xjObserver.observe(newEle, config)
-    if(auTargetSelector === 'this'){
+    auObserver.observe(newEle, config)
+    if(isThis || auTargetSelector === 'this' ){
       // we could get fancy and if it's the same element, just update the attributes again, but then we would need reactive attributes so no
       (e.target as HTMLElement).replaceWith(newEle)
+      return
     }
     const futureTarget = document.querySelector(auTargetSelector)
     futureTarget?.replaceWith(newEle)
@@ -85,5 +97,5 @@ export const callback = (mutationList: MutationRecord[], observer) => {
   }
 };
 
-export const xjObserver = new MutationObserver(callback);
+export const auObserver = new MutationObserver(callback);
 
