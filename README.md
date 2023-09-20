@@ -1,9 +1,7 @@
-# html-au
-HTML-au is Like HTMX but uses native web components on the client to generate html fragments vs using server side rendering.
+# HTML-AU
+HTML-AU is inspired by HTMX but uses client side JavaScript native customElements to generate html.
 
-Unlike HTMX does not try to conform to [HATEOAS](https://en.wikipedia.org/wiki/HATEOAS)
-
-This is currently an experiment to see what is possible.
+Unlike HTMX, HTML-AU does not try to conform to [HATEOAS](https://en.wikipedia.org/wiki/HATEOAS)
 
 ## Development
 
@@ -24,8 +22,8 @@ npm run test-dev
 ```
 
 ## Project Technical Summary
-Using HTML attributes to make a DSL for a set of use cases that will just re-render components vs trying to do updates. Inspired by HTMX. 
-The primary reason is, why even go to the server for html components/fragments. Have either an internal router to do that work, or use a convention based approach. 
+Using HTML attributes to make a DSL for a set of use cases that will re-render the an entire component. Inspired by HTMX.
+If the amount of code to write is about the same on the client vs the server, save the http call and do the work on the client.
 
 ```
 // simple input and button. Clicking the button updates the input value.
@@ -55,7 +53,7 @@ export class ClickCounter extends HTMLElement {
   body: FormData;
 
   connectedCallback() {
-    this.id = `me-${idGen.next().value}`
+    this.id = `counter-${idGen.next().value}`
     const previousCount = Number(this?.body?.get('counter') ?? 0)
     const count = (previousCount + 1).toString()
     const frag = html`
@@ -71,27 +69,3 @@ export class ClickCounter extends HTMLElement {
 }
 
 ```
-
-## Motivation
-
-Around 2021, I was excited for the retirement of Internet Explorer and wanted to see if a production app could be written using native JavaScript Custom Elements.
-The answer is yes I could. After I figured out a few things and accepted components for what they are, I liked them better than angular.js, vue.js and react.
-
-I quickly discovered that re-rendering components is just as fast as trying to update existing DOM elements. Updating existing elements is the whole point of angular.js, vue.js and react.
-
-This discovery is a double win: less code and faster development time via less code I had to write.
-
-I was very excited about my re-rendering discovery and started sharing it with others.  They were skeptical and the data alone was not enough to convince them to change their development practices.
-
-I often thought why hadn't our industry seized on this idea. Was it because Internet Explorer? Inertia?  Time is money. Development is not cheap. What was I missing?
-
-Enter [HTMX](https://htmx.org/examples/click-to-edit/). I ignored it for awhile. I just didn't have the time to looking at another framework.
-
-When I finally took a look and found out what HTMX did ... I was like 'YES' there it is! Independent confirmation that in many cases re-rendering does not negatively impact the user! And what a brilliant idea to use attributes to do it.
-
-My issue with HTMX was I did not want to generate my html on the server. My customElements look just like the server code.
-
-I browsed through the HTMX docs and looked through their code and immediately started creating this. Three hours later I had my first few use cases working.
-
-## The au- tag prefix
-No technical reason. I just liked it.
