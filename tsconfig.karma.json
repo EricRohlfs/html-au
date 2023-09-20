@@ -1,0 +1,32 @@
+{
+  "include": ["."],
+  "exclude": [
+    "./dist",
+    "node_modules"
+  ],
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "./dist/browser/test",
+    "noEmit": false
+  },
+  "paths": {
+    "sinon": [
+      "node_modules/sinon/pkg/sinon-esm.js"
+    ],
+    "ts-sinon": [
+      "node_modules/ts-sinon/dist/index.ts"
+    ],
+    "@sinon": [
+      "node_modules/@sinonjs/commons/types/index.d.ts"
+    ],
+    "jasmine-core": [
+      "node_modules/jasmine-core/lib/jasmine-core.js"
+    ]
+  },
+  "types": [
+    "jasmine",
+    "sinon"
+  ]
+}

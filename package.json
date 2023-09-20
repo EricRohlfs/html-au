@@ -1,27 +1,23 @@
 {
-  "name": "crank-no-start",
-  "version": "1.0.0",
-  "description": "",
+  "name": "html-au",
+  "version": "0.5.0",
+  "description": "HTML driven reactivity with customElements",
   "main": "index.js",
   "directories": {
     "example": "example"
   },
   "scripts": {
     "build": "tsc --project tsconfig.json & rollup --config ./rollup.browser.cfg & rollup --config ./rollup.karma.cfg",
-    "test": "karma start karma.azure.cfg.cjs",
-    "test:dev": "karma start karma.conf.cjs",
-    "karma": "karma start karma.conf.cjs",
-    "rollup": "rollup --config ./rollup.browser.cfg",
-    "rollup-watch": "rollup --config ./rollup.browser.cfg --watch",
-    "rollup:test": "rollup --config ./rollup.karma.cfg",
-    "rollup:test-watch": "rollup --config ./rollup.karma.cfg --watch",
-    "artifacts-auth": "vsts-npm-auth -config .npmrc"
+    "dev": "rollup --config ./rollup.browser.cfg --watch",
+    "test-once":"rollup --config ./rollup.karma.cfg & rollup --config ./rollup.browser.cfg",
+    "build-test": "rollup --config ./rollup.karma.cfg --watch",
+    "test-dev": "karma start karma.conf.cjs"
   },
   "repository": {
     "type": "git",
     "url": ""
   },
-  "license": "ISC",
+  "license": "MIT",
   "files": [
     "./src",
     "dist"

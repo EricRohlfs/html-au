@@ -5,6 +5,23 @@ Unlike HTMX does not try to conform to [HATEOAS](https://en.wikipedia.org/wiki/H
 
 This is currently an experiment to see what is possible.
 
+## Development
+
+Clone the code.
+```
+// run rollup in watch mode
+npm run dev
+```
+
+Use a web server such as Go Live in Visual Studio Code to run the examples. You will need to change the port number. [click here after starting live server](http://127.0.0.1:64699/example/basic/index.html)
+
+Unit tests
+```
+// terminal 1 - rollup in watch mode
+npm run build-test
+// terminal 2 - karma in watch mode
+npm run test-dev
+```
 
 ## Project Technical Summary
 Using HTML attributes to make a DSL for a set of use cases that will just re-render components vs trying to do updates. Inspired by HTMX. 

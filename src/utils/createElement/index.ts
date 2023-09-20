@@ -1,4 +1,4 @@
-import { escapeString } from '../index.js';
+import { escapeString } from '../common.js';
 import { CED, CEDC, CEDCIs, CreateElementOptions, eleAttributesType } from './types.js';
 export * from './types.js';
 
