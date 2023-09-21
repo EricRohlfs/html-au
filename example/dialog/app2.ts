@@ -14,7 +14,7 @@ class DialogButtons extends HTMLElement {
     const frag = this.templateLit()
     this.append(frag)
     // we have to do showModal in JavaScript because of the spec and the dialog has to be on the live DOM
-    // todo: could put something into html-au to make this attribute driven
+    // todo: could put something into html-au to make this attribute driven since dialog is a known element
     const dialog = this.querySelector<DialogPostExample>(':scope dialog')
     if (this.model?.button_action?.length > 0) {
       dialog?.action(this.model.button_action)
@@ -31,7 +31,6 @@ class DialogButtons extends HTMLElement {
     dialogBtn?.setAttribute('au-get', 'dialog-buttons')
     dialogBtn?.setAttribute('au-target', 'closest dialog-buttons')
     dialogBtn?.setAttribute('au-swap','outerHTML')
-
   }
   templateLit() {
     const disabled = this.isShow ? 'disabled':''

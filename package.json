@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "HTML driven reactivity with customElements",
   "author": "Eric Rohlfs",
-  "main": "dist/src/js/index.js",
+  "main": "dist/js/index.js",
   "scripts": {
     "build": "tsc --project tsconfig.json & rollup --config ./rollup.browser.cfg & rollup --config ./rollup.karma.cfg",
     "dev": "rollup --config ./rollup.browser.cfg --watch",
@@ -19,7 +19,7 @@
   "files": [
     "./src",
     "dist/browser/js",
-    "dist/js/src"
+    "dist/js"
   ],
   "publishConfig": {
     "access": "public",
