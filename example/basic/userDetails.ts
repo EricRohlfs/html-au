@@ -20,15 +20,15 @@ type userInfoModel = {
 }
 
 export class UserDetailsInfo extends HTMLElement {
-  body: FormData // data is being passed into the component as FormData
+  // body: FormData // data is being passed into the component as FormData
   model = {
     first_name: '',
     last_name: ''
   }
   connectedCallback() {
-    if (this.body) {
-      this.model = Object.fromEntries(this.body) as userInfoModel
-    }
+    // if (this.body) {
+    //   this.model = Object.fromEntries(this.body) as userInfoModel
+    // }
     const frag = html`
       <div>
         <span>First Name</span>

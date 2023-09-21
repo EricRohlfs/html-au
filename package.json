@@ -1,11 +1,9 @@
 {
   "name": "html-au",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "description": "HTML driven reactivity with customElements",
-  "main": "index.js",
-  "directories": {
-    "example": "example"
-  },
+  "author": "Eric Rohlfs",
+  "main": "dist/src/js/index.js",
   "scripts": {
     "build": "tsc --project tsconfig.json & rollup --config ./rollup.browser.cfg & rollup --config ./rollup.karma.cfg",
     "dev": "rollup --config ./rollup.browser.cfg --watch",
@@ -15,13 +13,18 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/EricRohlfs/html-au"
   },
   "license": "MIT",
   "files": [
     "./src",
-    "dist"
+    "dist/browser/js",
+    "dist/js/src"
   ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.6.3",
     "@rollup/plugin-node-resolve": "^15.0.1",

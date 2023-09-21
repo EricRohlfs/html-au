@@ -1,9 +1,8 @@
-import { swapOptions } from "src"
-import { createElement, html } from "src/utils"
+import { swapOptions, createElement, html } from "../../src"
 
 export const DIALOG_GET = 'dialog-get'
 
-export class DialogGetExample extends HTMLDialogElement{
+export class DialogGetExample extends HTMLDialogElement {
   connectedCallback(){
     const frag = html`
       <h1>Anim nulla et ipsum</h1>

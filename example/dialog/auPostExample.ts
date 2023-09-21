@@ -1,5 +1,5 @@
 
-import { html } from "src/utils";
+import { html } from "../../src/index.js";
 
 export const DIALOG_POST = 'dialog-post'
 
