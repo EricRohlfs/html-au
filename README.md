@@ -38,8 +38,7 @@ If the amount of code to write is about the same on the client vs the server, sa
           au-trigger="click"
           au-post="click-counter"
           au-include="closest click-counter"
-          au-target="#me-53"
-          au-state="processed">click me</button>
+          au-target="#me-53">click me</button>
     </click-counter>
 </section>
 ```
