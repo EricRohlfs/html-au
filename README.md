@@ -3,9 +3,11 @@ HTML-AU is inspired by HTMX but uses client side JavaScript native customElement
 
 Unlike HTMX, HTML-AU does not try to conform to [HATEOAS](https://en.wikipedia.org/wiki/HATEOAS)
 
+## Install
+```npm i html-au```
+
 ## Development
 
-Clone the code.
 ```
 // run rollup in watch mode
 npm run dev
@@ -44,7 +46,7 @@ If the amount of code to write is about the same on the client vs the server, sa
 
 ```
 // click counter code.
-// I don't see how this would be any smaller in a server side language.
+// This code is just as small and concise as it would be in server side code used with htmx.
 import { idGen } from "../../src/index.js";
 import { html } from '../../src/utils/index.js'
 export const CLICK_COUNTER = 'click-counter'
