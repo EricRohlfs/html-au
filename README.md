@@ -27,7 +27,7 @@ npm run test-dev
 Using HTML attributes to make a DSL for a set of use cases that will re-render the an entire component. Inspired by HTMX.
 If the amount of code to write is about the same on the client vs the server, save the http call and do the work on the client.
 
-```
+``` js
 // simple input and button. Clicking the button updates the input value.
 // the rendered live html
 <section id="counter-placeholder">
@@ -43,7 +43,7 @@ If the amount of code to write is about the same on the client vs the server, sa
 </section>
 ```
 
-```
+``` js
 // click counter code.
 // This code is just as small and concise as it would be in server side code used with htmx.
 import { idGen } from "../../src/index.js";
