@@ -25,6 +25,7 @@ export class HelloMessage extends HTMLElement{
 export class HelloWorldDiv extends HTMLDivElement {
   body:FormData
   connectedCallback(){
+    //@ts-ignore
     this.textContent = this.getAttribute('msg') ?? this.body?.get('msg')?.toString()
   }
 }

@@ -1,3 +1,4 @@
+import { swapOptions, triggerOptions } from "./auConstants.js";
 import { eventListenerBuilder } from "./eventListener/setup.js";
 import { getJson, postJson } from "./fetcher.js";
 import { auConfigType } from "./types.js";
@@ -8,5 +9,9 @@ export const defaultConfig = {
   eventListenerBuilder,
   // note: this could be postForm or postJson
   serverPost:postJson,
-  serverGet: getJson
+  serverGet: getJson,
+  defaultAttributes:{
+    'au-swap': swapOptions.outeHTML,
+    'au-trigger':triggerOptions.click,
+  }
 } as auConfigType

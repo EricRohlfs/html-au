@@ -5,6 +5,12 @@
 The technical goal is to limit the amount of code written in 
 custom elements to primarily template work.
 
+It is extremely helpful to know how to build custom elements.
+
+- create it
+  - wire up the connectedCallback to render a template
+- define it in the browser
+
 
 ## Off Ramp
 Every technology should have an off ramp.

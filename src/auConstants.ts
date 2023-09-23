@@ -11,7 +11,7 @@ export const triggerOptions = {
   change:'change'
 }
 
-export const targetOptions ={
+export const targetOptions = {
   document:'document',
   closest:'closest',
   next:'next',

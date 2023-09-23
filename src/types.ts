@@ -1,5 +1,6 @@
 import { CED } from "./utils/index.js"
 
+
 export type auSwapType = 'none'|'innerHTML'|'outerHTML' |'delete'
 
 export type auMetaType = {
@@ -48,5 +49,9 @@ export type auConfigType ={
   eventListenerBuilder: (ele:HTMLElement, auConfig:auConfigType)=>Promise<void>
   serverPost:(url:string, data: unknown | FormData)=>Promise<unknown>
   serverGet: (url:string)=>Promise<unknown>
+  defaultAttributes:{
+    'au-swap':string
+    'au-trigger':string
+  }
 }
 

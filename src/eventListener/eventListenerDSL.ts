@@ -2,15 +2,40 @@ import { swapOptions } from '../auConstants.js';
 import { auObserver } from '../auObserver.js';
 import { isAuElement } from '../common.js';
 import { getIncludeElement, getTargetEle } from '../targetSelectorDSL.js';
-import { auElementType, auMetaType } from '../types.js';
+import { auConfigType, auElementType, auMetaType } from '../types.js';
 import { CED, createElement } from '../utils/index.js';
 import { makeFormData } from '../makeFormData.js';
 import { attachServerResp, isAuServer } from '../auServerDSL.js';
+import { defaultConfig } from 'src/defaultConfig.js';
 
 const auPost = 'auPost'
 const auGet = 'auGet'
 
-export function getAuMeta(ele: HTMLElement): auMetaType {
+function guessTheTargetSelector(ele, auMeta){
+    // potential foot gun, guess a target when null
+    if (auMeta.targetSelector === null) {
+      // if no children search up the tree
+      if (ele.children.length === 0) {
+        auMeta.targetSelector = `closest ${auMeta.ced.tagName}`
+      } else {
+        auMeta.targetSelector = `document ${auMeta.ced.tagName}`
+      }
+      ele.setAttribute('au-target', auMeta.targetSelector)
+      auMeta.brains.push('au-target was empty so one was added for you.')
+    }
+}
+
+export async function getAuMeta(ele: HTMLElement, auConfig:auConfigType): Promise<auMetaType> {
+
+  const brains =[]
+  if(ele.getAttribute('au-trigger')=== null){
+    ele.setAttribute('au-trigger', defaultConfig.defaultAttributes['au-trigger']);
+    brains.push('au-trigger was empty. The default in the was added for you.')
+  }
+  if(ele.getAttribute('au-swap')=== null){
+    ele.setAttribute('au-swap', defaultConfig.defaultAttributes['au-swap']);
+    brains.push('au-swap was empty. The default in the config was added for you.')
+  }
 
   const auMeta = {
     trigger: ele.getAttribute('au-trigger'),
@@ -19,12 +44,12 @@ export function getAuMeta(ele: HTMLElement): auMetaType {
     auGet: ele.getAttribute('au-get'),
     auPost: ele.getAttribute('au-post'),
     auInclude: ele.getAttribute('au-include'),
-    auSwap: ele.getAttribute('au-swap') ?? 'none',
+    auSwap: ele.getAttribute('au-swap'),
     verb: '',
     searchParams: undefined,
     preserveFocus: ele.getAttribute('au-preserve-focus') !== null,
     isThis: false,
-    brains: [],
+    brains,
     // todo: better name, what CED? the ced to create based on the route
     ced: {
       tagName: '',
@@ -50,17 +75,7 @@ export function getAuMeta(ele: HTMLElement): auMetaType {
     auMeta.targetSelector = 'this'
   }
 
-  // potential foot gun, guess a target when null
-  if (auMeta.targetSelector === null) {
-    // if no children search up the tree
-    if (ele.children.length === 0) {
-      auMeta.targetSelector = `closest ${auMeta.ced.tagName}`
-    } else {
-      auMeta.targetSelector = `document ${auMeta.ced.tagName}`
-    }
-    ele.setAttribute('au-target', auMeta.targetSelector)
-    auMeta.brains.push('au-target was empty so one was added for you.')
-  }
+  guessTheTargetSelector(ele, auMeta)
 
   // given <div au-get="hello-msg?msg=hello world" we want to use the parameters as attributes
   // this will be an important part of the convention
@@ -85,30 +100,18 @@ async function removeOldEventListeners(ele: Element | DocumentFragment) {
   Array.from(ele.children).forEach(childEle => { removeOldEventListeners(childEle) })
 }
 
-function attachModel(newEle: auElementType, fd: FormData) {
-  const hasBody = newEle.hasOwnProperty('body')
-  const hasModel = newEle.hasOwnProperty('model')
-  if (hasBody) {
-    newEle.body = fd
-  }
-  if (hasModel) {
-    newEle.model = Object.fromEntries(fd.entries())
-  }
-  if (!hasBody && !hasModel) {
-    throw new Error('Using attribute au-post without a property of body or model on the target component. Either add body or model to the component, or use au-get.')
-  }
-}
-
-export async function basicEventListener(ele: HTMLElement, cmd: string, auConfig) {
+export async function basicEventListener(ele: HTMLElement, cmd: string, auConfig:auConfigType) {
   (ele as auElementType).auAbortController = new AbortController()
   // todo: think of a way to destroy the event listener when the time is right
   ele.addEventListener(cmd, async (e) => {
-    const auMeta = getAuMeta(ele)
+    const auMeta = await getAuMeta(ele, auConfig)
     // add any querystring params from au-get or au-post
     // attributes are nice and allow for outer configuration like classes and such
     // but attributes do clutter up the dom if just needed as properties
     // if we only passed properties, then the user could have getters/setters that do set the attribute
     // but attributes are usually safer
+    // BUT picking and choosing interfears with the whole get/post form data serialization thing.
+    // technically all form values should be paramertized, but what about a big text field?
     for (const [key, value] of auMeta.searchParams.entries()) {
       auMeta.ced.attributes[key] = value
     }
@@ -121,6 +124,7 @@ export async function basicEventListener(ele: HTMLElement, cmd: string, auConfig
       }
     }
 
+    // todo:revisit this use case
     // could have an overwrite situation when the searchParam and an existing attribute are the same.
     if (auMeta.isThis) {
       // copy existing attributes to new element
@@ -131,7 +135,7 @@ export async function basicEventListener(ele: HTMLElement, cmd: string, auConfig
 
     const newEle = createElement<auElementType>(auMeta.ced)
     const isServer = isAuServer(auMeta);
-    // if attachServerResp is mutually exclusive against update the component with form data
+    // attachServerResp is mutually exclusive against update the component with form data
     await attachServerResp(ele, auMeta, newEle, auConfig)
 
     // not sure this is any different for get or post
@@ -154,7 +158,7 @@ export async function basicEventListener(ele: HTMLElement, cmd: string, auConfig
 
     newEle.auMeta = { ...auMeta } // add the metadata for debugging and other edge use cases like maybe they want to parse the au-post query params
     // the observer will decide if it needs to wire up as another auElement
-    auObserver(newEle)
+    auObserver(newEle, auConfig)
 
     const target = getTargetEle(ele, auMeta.targetSelector)
     // todo: maybe move the elements to a fragment, then cleanup async
@@ -172,6 +176,7 @@ export async function basicEventListener(ele: HTMLElement, cmd: string, auConfig
         toDispose.appendChild(target);
         break;
       default:
+        // outerHTML
         target.replaceWith(newEle)
         toDispose.appendChild(target);
         break;
