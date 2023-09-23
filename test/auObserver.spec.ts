@@ -1,7 +1,7 @@
-import { auObserver} from "src"
-import { getAuMeta } from "src/eventListenerDSL"
-import { auElementType, auMetaType } from "src/types"
-import { CED, createElement, html } from "src/utils"
+import { getAuMeta } from "../src/eventListener/eventListenerDSL.js"
+import { auObserver} from "../src/index.js"
+import { auElementType, auMetaType} from "../src/types"
+import { CED, createElement, html } from "../src/utils"
 
 
 describe('auObserver',()=>{
@@ -50,7 +50,7 @@ describe('getAuMeta',()=>{
 
   beforeAll(()=>{
     inputEle = createElement<auElementType>(inputCED)
-    auMeta = getAuMeta(inputEle)
+    auMeta = getAuMeta(inputEle,{})
   })
   it('has au-post',()=>{
     expect(auMeta.auPost).toBe(inputCED.attributes['au-post'] as string)
