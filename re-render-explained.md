@@ -5,7 +5,7 @@ Fist, I'll explain what updates in native web component custom elements. Then th
 
 Updates are when you render a component with data, then as the data changes you update just the data on the DOM. The existing elements stay and the goal is to update the smallest parts necessary.
 
-```
+``` js
 // I have not run this, but should give you enough of an idea of what is going on.
 // The update approach in custom elements (no htmx). A user enters data into the form, then the user sees their input in the divs below. 
 // This example is not too bad, but this is a simple example. Even so, few things could go wrong like misspelling selectors, ids, or input names. There are stratigies for this like using const first_name='first_name', but why, when we could just re-render the entire info template.
@@ -39,7 +39,7 @@ export class UserDetailsForm extends HTMLFormElement{
 defineElement('user-details-form', UserDetailsForm, 'form')
 ```
 
-```
+``` js
 // the re-render example (but not using the html-au or htmx approach, just giving an example of re-rendering vs. updates in custom elements. But as you can see even this approach is not ideal. And that is what html-au hopes to bring to the table.)
 // this example is much less brittle and scales better too.
 
@@ -76,7 +76,7 @@ export class UserDetailsForm extends HTMLFormElement{
 defineElement('user-details-form', UserDetailsForm, 'form')
 ```
 
-```
+``` js
 // html-au example
 // this might be overkill, I might not need two components, I bet I could just re-render the whole form with a little extra work. This is a good two component example then.
 
@@ -118,7 +118,7 @@ defineElement('user-details', UserDetailsInfo)
 
 
 
-```
+``` js
 // html-au example
 // as a single component 
 
