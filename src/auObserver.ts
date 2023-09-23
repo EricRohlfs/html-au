@@ -1,5 +1,5 @@
 import { isAuElement } from './common.js';
-import {setupEventListener} from './eventListenerDSL.js'
+import {setupEventListener} from './eventListener/setup.js'
 
 // Options for the observer (which mutations to observe)
 // Note: only need attributes if element add them after they are created

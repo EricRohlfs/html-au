@@ -5,6 +5,7 @@ export type auSwapType = 'none'|'innerHTML'|'outerHTML' |'delete'
 export type auMetaType = {
   trigger:string
   targetSelector: string|null
+  server: string| null
   auGet: string|null
   auPost: string|null
   auSwap: string // auSwapType
@@ -28,6 +29,7 @@ export type auAttributeTypes = {
   'au-include'?: string
   'au-swap'?: auSwapType
   'au-preserve-focus'?: booleanAttribute
+  'au-server'?:string
 }
 
 export type auElementType = {

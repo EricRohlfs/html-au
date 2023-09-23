@@ -1,20 +1,20 @@
-import { swapOptions, triggerOptions } from './auConstants.js';
-import { auObserve } from './auObserver.js';
-import { isAuElement } from './common.js';
-import { getIncludeElement, getTargetEle } from './targetSelectorDSL.js';
-import { auElementType, auMetaType, auSwapType } from './types.js';
-import { CED, createElement } from './utils/index.js';
-import { makeFormData } from './makeFormData.js';
+import { swapOptions } from '../auConstants.js';
+import { auObserve } from '../auObserver.js';
+import { isAuElement } from '../common.js';
+import { getIncludeElement, getTargetEle } from '../targetSelectorDSL.js';
+import { auElementType, auMetaType } from '../types.js';
+import { CED, createElement } from '../utils/index.js';
+import { makeFormData } from '../makeFormData.js';
+import { attachServerResp, isAuServer } from '../auServerDSL.js';
 
 const auPost = 'auPost'
 const auGet = 'auGet'
-
-const triggerKeys = Object.values(triggerOptions)
 
 export function getAuMeta(ele: HTMLElement): auMetaType {
 
   const auMeta = {
     trigger: ele.getAttribute('au-trigger'),
+    server: ele.getAttribute('au-server'),
     targetSelector: ele.getAttribute('au-target'),
     auGet: ele.getAttribute('au-get'),
     auPost: ele.getAttribute('au-post'),
@@ -85,10 +85,24 @@ async function removeOldEventListeners(ele: Element | DocumentFragment) {
   Array.from(ele.children).forEach(childEle => { removeOldEventListeners(childEle) })
 }
 
-function basicEventListener(ele: HTMLElement, cmd: string) {
+function attachModel(newEle: auElementType, fd: FormData) {
+  const hasBody = newEle.hasOwnProperty('body')
+  const hasModel = newEle.hasOwnProperty('model')
+  if (hasBody) {
+    newEle.body = fd
+  }
+  if (hasModel) {
+    newEle.model = Object.fromEntries(fd.entries())
+  }
+  if (!hasBody && !hasModel) {
+    throw new Error('Using attribute au-post without a property of body or model on the target component. Either add body or model to the component, or use au-get.')
+  }
+}
+
+export async function basicEventListener(ele: HTMLElement, cmd: string) {
   (ele as auElementType).auAbortController = new AbortController()
   // todo: think of a way to destroy the event listener when the time is right
-  ele.addEventListener(cmd, (e) => {
+  ele.addEventListener(cmd, async (e) => {
     const auMeta = getAuMeta(ele)
     // add any querystring params from au-get or au-post
     // attributes are nice and allow for outer configuration like classes and such
@@ -116,7 +130,12 @@ function basicEventListener(ele: HTMLElement, cmd: string) {
     }
 
     const newEle = createElement<auElementType>(auMeta.ced)
-    if (auMeta.verb === auPost) {
+    const isServer = isAuServer(auMeta);
+    // if attachServerResp is mutually exclusive against update the component with form data
+    await attachServerResp(ele, auMeta, newEle)
+
+    // not sure this is any different for get or post
+    if (auMeta.verb === auPost && !isServer) {
       const formDataEle = getIncludeElement(ele, auMeta)
       // note: user gets to decide which format by what they put in their componet
       const fd = makeFormData(formDataEle)
@@ -129,7 +148,7 @@ function basicEventListener(ele: HTMLElement, cmd: string) {
         newEle.model = Object.fromEntries(fd.entries())
       }
       if (!hasBody && !hasModel) {
-        throw new Error('Using attribute au-post without a property of body or model on the targe component. Either add body or model to the component, or use au-get.')
+        throw new Error('Using attribute au-post without a property of body or model on the target component. Either add body or model to the component, or use au-get.')
       }
     }
 
@@ -170,20 +189,6 @@ function basicEventListener(ele: HTMLElement, cmd: string) {
   }, { signal: (ele as auElementType).auAbortController.signal })
 }
 
-export function setupEventListener(ele: HTMLElement) {
-  // prevent infinate loop or already processed elements
-  if ((ele as auElementType).auState === 'processed') { return; }
-  (ele as auElementType).auState = 'processed'
-  //setupEventListener(ele)
 
-  // todo: just get what you need
-  const triggerData = getAuMeta(ele)
-
-  // safety to limit the types of events or triggers, this will need to change as the api expands
-  if (!triggerKeys.includes(triggerData.trigger)) { return }
-  basicEventListener(ele, triggerData.trigger)
-
-  // todo: htmx supports a setTimeout option too.
-}
 
 

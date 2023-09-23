@@ -1,5 +1,5 @@
 import { idGen } from "../../src/index.js";
-import { html } from '../../src/utils/index.js'
+import { defineElement, html } from '../../src/utils/index.js'
 export const CLICK_COUNTER = 'click-counter'
 
 export class ClickCounter extends HTMLElement {
@@ -20,3 +20,5 @@ export class ClickCounter extends HTMLElement {
     this.append(frag)
   }
 }
+
+defineElement(CLICK_COUNTER, ClickCounter)

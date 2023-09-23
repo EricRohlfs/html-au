@@ -16,8 +16,13 @@ export function makeFormData(node: HTMLElement): FormData {
     controls.push(node)
   }
   const fd = new FormData()
+
   controls.forEach(ctrol => {
+    if(fd.has(ctrol.name)){
+      console.warn(`Hey developer, you might have a copy paste error in your form on name ${ctrol.name}`)
+    }
     fd.set(ctrol.name, ctrol.value)
   })
+  
   return fd;
 }
