@@ -1,8 +1,8 @@
-import { auObserve,  createElement, defineElement, html } from "../../src";
+import { auObserver,  createElement, defineElement, html } from "../../src";
 import { DIALOG_POST, DialogPostExample, buttonActionType } from "./auPostExample";
 
 // want to get the observer running first thing
-auObserve(document.body)
+auObserver(document.body)
 
 class DialogButtons extends HTMLElement {
   model = {

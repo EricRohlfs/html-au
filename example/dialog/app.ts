@@ -1,10 +1,10 @@
-import { auObserve } from "src";
+import { auObserver} from "src";
 import { createElement, defineElement, html } from "src/utils";
 import { DIALOG_POST, DialogPostExample } from "./auPostExample";
 import { DIALOG_GET, DialogGetExample } from "./auGetExample";
 import { swapOptions } from "src";
 
-auObserve(document.body)
+auObserver(document.body)
 export const placeholderCED = {
   tagName: 'div',
   attributes: {

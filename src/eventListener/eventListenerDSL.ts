@@ -1,5 +1,5 @@
 import { swapOptions } from '../auConstants.js';
-import { auObserve } from '../auObserver.js';
+import { auObserver } from '../auObserver.js';
 import { isAuElement } from '../common.js';
 import { getIncludeElement, getTargetEle } from '../targetSelectorDSL.js';
 import { auElementType, auMetaType } from '../types.js';
@@ -99,7 +99,7 @@ function attachModel(newEle: auElementType, fd: FormData) {
   }
 }
 
-export async function basicEventListener(ele: HTMLElement, cmd: string) {
+export async function basicEventListener(ele: HTMLElement, cmd: string, auConfig) {
   (ele as auElementType).auAbortController = new AbortController()
   // todo: think of a way to destroy the event listener when the time is right
   ele.addEventListener(cmd, async (e) => {
@@ -132,7 +132,7 @@ export async function basicEventListener(ele: HTMLElement, cmd: string) {
     const newEle = createElement<auElementType>(auMeta.ced)
     const isServer = isAuServer(auMeta);
     // if attachServerResp is mutually exclusive against update the component with form data
-    await attachServerResp(ele, auMeta, newEle)
+    await attachServerResp(ele, auMeta, newEle, auConfig)
 
     // not sure this is any different for get or post
     if (auMeta.verb === auPost && !isServer) {
@@ -154,7 +154,7 @@ export async function basicEventListener(ele: HTMLElement, cmd: string) {
 
     newEle.auMeta = { ...auMeta } // add the metadata for debugging and other edge use cases like maybe they want to parse the au-post query params
     // the observer will decide if it needs to wire up as another auElement
-    auObserve(newEle)
+    auObserver(newEle)
 
     const target = getTargetEle(ele, auMeta.targetSelector)
     // todo: maybe move the elements to a fragment, then cleanup async

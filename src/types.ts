@@ -40,3 +40,13 @@ export type auElementType = {
   model?: any
   attributes:auAttributeTypes
 } & HTMLElement
+
+
+// todo: we could have a default loding component type here
+// todo: we could have a default error error component for fetch errors. Or it could be handled in the user provided fetch functions 
+export type auConfigType ={
+  eventListenerBuilder: (ele:HTMLElement, auConfig:auConfigType)=>Promise<void>
+  serverPost:(url:string, data: unknown | FormData)=>Promise<unknown>
+  serverGet: (url:string)=>Promise<unknown>
+}
+

@@ -1,8 +1,8 @@
-import {auObserve, html} from '../src/index.js';
+import {auObserver, html} from '../src/index.js';
 import './basic/clickCounter.js'
 import './user-form/index.js'
 
-auObserve(document.body);
+auObserver(document.body);
 
 const pageLayout = html`
   <h1>Examples</h1>
@@ -26,7 +26,7 @@ const pageLayout = html`
   <main></main>
 `
 
-// load the last component on page refresh
+// nothing to do with html-au, just a development time saver: loads the last component on page refresh
 const main = pageLayout.querySelector(':scope main') as HTMLElement;
 const view = window.location.hash
 if(view?.length > 0){
