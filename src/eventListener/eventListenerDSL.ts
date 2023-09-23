@@ -11,28 +11,28 @@ import { defaultConfig } from 'src/defaultConfig.js';
 const auPost = 'auPost'
 const auGet = 'auGet'
 
-function guessTheTargetSelector(ele, auMeta){
-    // potential foot gun, guess a target when null
-    if (auMeta.targetSelector === null) {
-      // if no children search up the tree
-      if (ele.children.length === 0) {
-        auMeta.targetSelector = `closest ${auMeta.ced.tagName}`
-      } else {
-        auMeta.targetSelector = `document ${auMeta.ced.tagName}`
-      }
-      ele.setAttribute('au-target', auMeta.targetSelector)
-      auMeta.brains.push('au-target was empty so one was added for you.')
+function guessTheTargetSelector(ele, auMeta) {
+  // potential foot gun, guess a target when null
+  if (auMeta.targetSelector === null) {
+    // if no children search up the tree
+    if (ele.children.length === 0) {
+      auMeta.targetSelector = `closest ${auMeta.ced.tagName}`
+    } else {
+      auMeta.targetSelector = `document ${auMeta.ced.tagName}`
     }
+    ele.setAttribute('au-target', auMeta.targetSelector)
+    auMeta.brains.push('au-target was empty so one was added for you.')
+  }
 }
 
-export async function getAuMeta(ele: HTMLElement, auConfig:auConfigType): Promise<auMetaType> {
+export async function getAuMeta(ele: HTMLElement, auConfig: auConfigType): Promise<auMetaType> {
 
-  const brains =[]
-  if(ele.getAttribute('au-trigger')=== null){
+  const brains = []
+  if (ele.getAttribute('au-trigger') === null) {
     ele.setAttribute('au-trigger', defaultConfig.defaultAttributes['au-trigger']);
     brains.push('au-trigger was empty. The default in the was added for you.')
   }
-  if(ele.getAttribute('au-swap')=== null){
+  if (ele.getAttribute('au-swap') === null) {
     ele.setAttribute('au-swap', defaultConfig.defaultAttributes['au-swap']);
     brains.push('au-swap was empty. The default in the config was added for you.')
   }
@@ -45,9 +45,10 @@ export async function getAuMeta(ele: HTMLElement, auConfig:auConfigType): Promis
     auPost: ele.getAttribute('au-post'),
     auInclude: ele.getAttribute('au-include'),
     auSwap: ele.getAttribute('au-swap'),
+    preserveFocus: ele.getAttribute('au-preserve-focus') !== null,
+    attachSwapped: ele.getAttribute('au-attach-swapped') !== null,
     verb: '',
     searchParams: undefined,
-    preserveFocus: ele.getAttribute('au-preserve-focus') !== null,
     isThis: false,
     brains,
     // todo: better name, what CED? the ced to create based on the route
@@ -100,7 +101,7 @@ async function removeOldEventListeners(ele: Element | DocumentFragment) {
   Array.from(ele.children).forEach(childEle => { removeOldEventListeners(childEle) })
 }
 
-export async function basicEventListener(ele: HTMLElement, cmd: string, auConfig:auConfigType) {
+export async function basicEventListener(ele: HTMLElement, cmd: string, auConfig: auConfigType) {
   (ele as auElementType).auAbortController = new AbortController()
   // todo: think of a way to destroy the event listener when the time is right
   ele.addEventListener(cmd, async (e) => {
@@ -161,8 +162,15 @@ export async function basicEventListener(ele: HTMLElement, cmd: string, auConfig
     auObserver(newEle, auConfig)
 
     const target = getTargetEle(ele, auMeta.targetSelector)
-    // todo: maybe move the elements to a fragment, then cleanup async
-    const toDispose = new DocumentFragment()
+
+    // need to play with this some more and get it working better
+    let toDispose;
+    if (auMeta.attachSwapped) {
+      newEle.auPreviousTree = new DocumentFragment()
+      toDispose = newEle.auPreviousTree;
+    } else {
+      toDispose = new DocumentFragment()
+    }
     switch (auMeta.auSwap) {
       case swapOptions.innerHTML:
         // could see if the inner has any auElements and remove the event listeners

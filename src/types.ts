@@ -13,6 +13,7 @@ export type auMetaType = {
   verb: string,
   searchParams: URLSearchParams,
   preserveFocus: boolean
+  attachSwapped:boolean
   auInclude: string|null
   isThis: boolean,
   /** messages for decisions we make trying to be smart for the user */
@@ -30,6 +31,7 @@ export type auAttributeTypes = {
   'au-include'?: string
   'au-swap'?: auSwapType
   'au-preserve-focus'?: booleanAttribute
+  'au-attach-swapped'?:booleanAttribute
   'au-server'?:string
 }
 
@@ -40,6 +42,7 @@ export type auElementType = {
   body?:FormData
   model?: any
   attributes:auAttributeTypes
+  auPreviousTree:DocumentFragment
 } & HTMLElement
 
 

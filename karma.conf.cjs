@@ -18,9 +18,9 @@ module.exports = function(config) {
     files: [
       { pattern: './src/**/*.ts', type: 'module', watched: true, served: true, included: false},
       { pattern: './dist/**/*.map', type: 'module', watched: true, served: true, included: false},
-      { pattern: './test/**/*.map', type: 'module', watched: true, served: true, included: false},
+      { pattern: './test/dist/**/*.map', type: 'module', watched: true, served: true, included: false},
       { pattern: './test/**/*.ts', type: 'module', watched: true, served: true, included: false},
-      { pattern: './dist/browser/test/index.js', type: 'module', included: true, served:true, watched:true }
+      { pattern: './test/dist/browser/test/index.js', type: 'module', included: true, served:true, watched:true }
     ],
 
 
