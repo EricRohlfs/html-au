@@ -15,9 +15,13 @@ import { auMetaType } from "./types";
  * au-target='parent4 div'
  * 
  */
-export function getTargetEle(auElement:HTMLElement, cmd: string): HTMLElement {
-  if(cmd === '' || cmd === undefined || cmd === null){
+export function getTargetEle(auElement: HTMLElement, cmd: string): HTMLElement {
+  if (cmd === '' || cmd === undefined || cmd === null) {
     return;
+  }
+  // todo: add 'previous cssSelector' 
+  if (cmd.startsWith('previous')) {
+    throw Error("Previous selector is not yet implemented");
   }
   if (cmd.startsWith('closest')) {
     const selectorText = cmd.replace('closest ', '')
@@ -28,16 +32,16 @@ export function getTargetEle(auElement:HTMLElement, cmd: string): HTMLElement {
     return auElement.nextElementSibling as HTMLElement
   }
 
-  if ( cmd === 'this') {
+  if (cmd === 'this') {
     return auElement
   }
 
-  if(cmd.startsWith('document ')){
-    return document.querySelector(cmd.replace('document ',''))
+  if (cmd.startsWith('document ')) {
+    return document.querySelector(cmd.replace('document ', ''))
   }
 
   // not even sure this makes sense, usually clickable things don't have children, but here as a footgun anyway
-  if(cmd.startsWith('scope ')){
+  if (cmd.startsWith('scope ')) {
     // expected 'scope div span'
     return auElement.querySelector(`:${cmd}`)
   }
@@ -46,7 +50,8 @@ export function getTargetEle(auElement:HTMLElement, cmd: string): HTMLElement {
 
 }
 
-
+/** not sure this is idea, we might include it in the form but than might not mean it's the target to replace
+*/
 export function getIncludeElement(ele: HTMLElement, auMeta: auMetaType) {
   if (auMeta.auInclude?.length > 0) {
     return getTargetEle(ele, auMeta.auInclude)

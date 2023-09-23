@@ -1,5 +1,7 @@
-
-export async function postForm(url, body) {
+/**
+ * It is recommended that you implement your own post and get functions.
+ */
+export async function postForm(url:string, body) {
   try {
     if (body === undefined) { return; }
     const response = await fetch(url, {
@@ -16,7 +18,7 @@ export async function postForm(url, body) {
     console.error('There was a problem with the fetch operation:', error);
   }
 }
-export async function postJson(url,postData) {
+export async function postJson(url:string, postData) {
   if (postData === undefined) { return; }
 
   try {

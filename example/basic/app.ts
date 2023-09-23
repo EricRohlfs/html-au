@@ -1,4 +1,4 @@
-import { callback, config } from "../../src/index.js";
+import { auObserver} from "../../src/index.js";
 import { createElement, defineElement } from '../../src/utils/index.js';
 import { ClickCounter } from "./clickCounter.js";
 import { HelloWorldDiv } from "./helloWorld.js";
@@ -16,7 +16,7 @@ const hv = createElement<HomeView>({
   tagName:'home-view'
 })
 
-const observer = new MutationObserver(callback)
-observer.observe(document.body, config)
+
+auObserver(document.body)
 document.body.appendChild(hv)
 

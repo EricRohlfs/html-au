@@ -1,31 +1,40 @@
 import { isAuElement } from './common.js';
-import {setupEventListener} from './eventListener/setup.js'
+import { defaultConfig } from './defaultConfig.js';
+import { auConfigType } from './types.js';
+
+function recurseNodes(node: HTMLElement, auConfig:auConfigType) {
+  if (node.nodeType === Node.ELEMENT_NODE) {
+    // console.log(node?.tagName)
+    node.childNodes.forEach(child => recurseNodes(child as HTMLHtmlElement, auConfig))
+    if (!isAuElement(node)) { return; }
+      auConfig.eventListenerBuilder(node as unknown as HTMLElement, auConfig)
+  }
+}
+
+const getCallback = (auConfig:auConfigType) => {
+  // Callback function to execute when mutations are observed
+  return (mutationList: MutationRecord[], observer) => {
+    for (const mutation of mutationList) {
+      if (mutation.target?.nodeType === 1 || mutation.target?.nodeType === 11) {
+        recurseNodes(mutation.target as HTMLElement, auConfig)
+      }
+    }
+  };
+}
+
 
 // Options for the observer (which mutations to observe)
 // Note: only need attributes if element add them after they are created
 // todo: test the use case where we have an element it's not au, then we add them after the element is on the DOM
-export const config = { attributes: true, subtree: true, childList: true };
 
-function recurseNodes(node: HTMLElement) {
-  if (node.nodeType === Node.ELEMENT_NODE) {
-    // console.log(node?.tagName)
-    node.childNodes.forEach(child => recurseNodes(child as HTMLHtmlElement))
-    if (!isAuElement(node)) { return }
-    setupEventListener(node as unknown as HTMLElement)
-  }}
-
-  // Callback function to execute when mutations are observed
-  export const callback = (mutationList: MutationRecord[], observer) => {
-    for (const mutation of mutationList) {
-      if (mutation.target?.nodeType === 1 || mutation.target?.nodeType === 11) {
-        recurseNodes(mutation.target as HTMLElement)
-      }
-    }
-  };
-
-  export function auObserve(ele){
-    const auObserver = new MutationObserver(callback);
-    auObserver.observe(ele, config)
-  }
-
-
+/**
+ * usage
+ * auObserver(document.body)
+ * or if you want control over the HTTP requests
+ * auObserver(document.body, myConfig)
+ */
+export function auObserver(ele, auConfig:auConfigType = defaultConfig) {
+  const callback = getCallback(auConfig);
+  const auObserver = new MutationObserver(callback);
+  auObserver.observe(ele, { attributes: true, subtree: true, childList: true })
+}

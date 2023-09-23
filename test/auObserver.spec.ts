@@ -1,4 +1,4 @@
-import { auObserve } from "src"
+import { auObserver} from "src"
 import { getAuMeta } from "src/eventListenerDSL"
 import { auElementType, auMetaType } from "src/types"
 import { CED, createElement, html } from "src/utils"
@@ -11,7 +11,7 @@ describe('auObserver',()=>{
     host = createElement<HTMLDivElement>({
       tagName:'div'
     })
-    auObserve(host)
+    auObserver(host)
   })
 
   it('processes auElements', (done)=>{
