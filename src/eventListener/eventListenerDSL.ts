@@ -1,10 +1,10 @@
 import { swapOptions } from '../auConstants.js';
 import { auObserver } from '../auObserver.js';
 import { isAuElement } from '../common.js';
-import { getIncludeElement, getTargetEle } from '../targetSelectorDSL.js';
+import { getIncludeElement, getTargetEle } from '../auTargetSelector.js';
 import { auConfigType, auElementType, auMetaType } from '../types.js';
 import { CED, createElement } from '../utils/index.js';
-import { makeFormData } from '../makeFormData.js';
+import { makeFormData } from '../auFormData.js';
 import { attachServerResp, isAuServer } from '../auServerDSL.js';
 import { defaultConfig } from 'src/defaultConfig.js';
 

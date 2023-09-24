@@ -1,7 +1,7 @@
 import { objectToQueryParams } from "./common"
 import { getJson, postJson } from "./fetcher"
-import { makeFormData } from "./makeFormData"
-import { getIncludeElement } from "./targetSelectorDSL"
+import { makeFormData } from "./auFormData"
+import { getIncludeElement } from "./auTargetSelector"
 import { auElementType, auMetaType } from "./types"
 
 //todo:need to test this function
