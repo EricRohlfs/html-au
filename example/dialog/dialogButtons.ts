@@ -35,14 +35,14 @@ export class DialogButtons extends HTMLElement {
     <main>
       <!-- Example 1-->
       <button
-        au-get="dialog-buttons?open"
+        au-ced="get dialog-buttons?open"
         au-target="closest dialog-buttons"
         au-trigger="click"
         ${disabled}
         >get open dialog attribute</button>
       <!-- Example 2-->
       <button
-        au-post="dialog-buttons"
+        au-ced="post dialog-buttons"
         au-target="closest dialog-buttons"
         au-trigger="click"
         name="button_action"
@@ -51,7 +51,7 @@ export class DialogButtons extends HTMLElement {
       <!-- Example 3-->
       <!-- notice missing trigger attribute will use au-post --> 
       <button
-        au-post="dialog-buttons"
+        au-ced="post dialog-buttons"
         au-trigger="click"
         name="button_action"
         ${disabled}

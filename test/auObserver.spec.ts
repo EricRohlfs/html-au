@@ -1,5 +1,5 @@
 import { defaultConfig } from "../src/defaultConfig.js"
-import { getAuMeta } from "../src/eventListener/eventListenerDSL.js"
+import { getAuMeta } from "../src/eventListener/auMeta.js"
 import { auObserver} from "../src/index.js"
 import { auElementType, auMetaType} from "../src/types.js"
 import { CED, createElement, html } from "../src/index.js"
@@ -20,7 +20,7 @@ describe('auObserver',()=>{
       <input
       type='text'
       name='msg'
-      au-post='div?is=hello-world-div'
+      au-ced='div?is=hello-world-div'
       au-target='next'
       au-trigger='input'/>
     `
@@ -44,7 +44,7 @@ describe('getAuMeta',()=>{
     attributes:{
       type:'text',
       name:'msg',
-      'au-post':'div?is=hello-world-div',
+      'au-ced':'post div?is=hello-world-div',
       'au-target':'next',
       'au-trigger':'input',
     }
@@ -56,7 +56,7 @@ describe('getAuMeta',()=>{
   })
   it('has au-post',()=>{
     // @ts-ignore
-    expect(auMeta.auPost).toBe(inputCED.attributes['au-post'] as string)
+    expect(auMeta.auCed.raw).toBe(inputCED.attributes['au-ced'] as string)
   })
   it('has au-target',()=>{
     // @ts-ignore
@@ -66,17 +66,17 @@ describe('getAuMeta',()=>{
     // @ts-ignore
     expect(auMeta.trigger).toBe(inputCED.attributes['au-trigger'] as string)
   })
-  it('au-get is null',()=>{
-    expect(auMeta.auGet).toBe(null)
-  })
+  // it('au-get is null',()=>{
+  //   expect(auMeta).toBe(null)
+  // })
   it('au-swap is null',()=>{
     expect(auMeta.auSwap).toBe('outerHTML')
   })
-  it('verb tobe auPost',()=>{
-    expect(auMeta.verb).toBe('auPost')
+  it('auMeta au ced verb tobe post',()=>{
+    expect(auMeta.auCed.verb).toBe('post')
   })
   it('searchParams tobe is=hello-world-div',()=>{
-    expect(auMeta.searchParams.get('is')).toBe('hello-world-div')
+    expect(auMeta.auCed.qs.get('is')).toBe('hello-world-div')
   })
   it('preserveFocus is null',()=>{
     expect(auMeta.preserveFocus).toBe(false)

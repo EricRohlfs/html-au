@@ -13,7 +13,7 @@ export class ClickCounter extends HTMLElement {
       <input name='counter' value='${count}' />
       <button
         au-trigger='click'
-        au-post='${CLICK_COUNTER}'
+        au-ced='post ${CLICK_COUNTER}'
         au-include='closest ${CLICK_COUNTER}'
         au-target='#${this.id}'>click me</button>
     `

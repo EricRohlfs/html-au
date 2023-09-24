@@ -1,6 +1,7 @@
 import { triggerOptions } from "src/auConstants";
-import { basicEventListener, getAuMeta } from "./eventListenerDSL.js";
+import { basicEventListener } from "./eventListenerDSL.js";
 import { auElementType } from "src/types.js";
+import { getAuMeta } from "./auMeta.js";
 
 const triggerKeys = Object.values(triggerOptions)
 

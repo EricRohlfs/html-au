@@ -20,13 +20,13 @@ const main = html`
 <main>
   <!-- Example 1-->
   <button
-    au-get="dialog?is=dialog-get&open"
+    au-ced="get dialog?is=dialog-get&open"
     au-target="#${placeholderCED.attributes.id}"
     au-swap="${swapOptions.innerHTML}"
     au-trigger="click">get open dialog attribute</button>
   <!-- Example 2-->
   <button
-    au-post="dialog?is=dialog-post"
+    au-ced="post dialog?is=dialog-post"
     au-target="#${placeholderCED.attributes.id}"
     au-trigger="click"
     au-swap="${swapOptions.innerHTML}"
@@ -34,7 +34,7 @@ const main = html`
     value="show">post dialog.show</button>
   <!-- Example 3-->
   <button
-    au-post="dialog?is=dialog-post"
+    au-ced="post dialog?is=dialog-post"
     au-target="#${placeholderCED.attributes.id}"
     au-trigger="click"
     au-swap="${swapOptions.innerHTML}"

@@ -20,7 +20,7 @@ const pageLayout = html`
     <!-- todo this should still work and copy the query params over -->
     <a
       href="#"
-      au-post="div?is=hello-msg&msg=Hello"
+      au-ced="post div?is=hello-msg&msg=Hello"
       au-swap="innerHTML"
       au-target="main"
       > Hello Message au-post</a>
@@ -28,7 +28,7 @@ const pageLayout = html`
     <a 
       href="#click-counter"
       au-trigger="click"
-      au-post="click-counter"
+      au-ced="post click-counter"
       au-target="main"
       au-swap="innerHTML"
       >Click Counter</a>
@@ -36,7 +36,7 @@ const pageLayout = html`
       <a 
       href="#user-form"
       au-trigger="click"
-      au-post="user-form"
+      au-ced="post user-form"
       au-target="main"
       au-swap="innerHTML"
       >User Form</a>
@@ -44,7 +44,7 @@ const pageLayout = html`
       <a 
       href="#user-form"
       au-trigger="click"
-      au-post="user-form"
+      au-ced="post user-form"
       au-target="main"
       au-swap="innerHTML"
       >User Form</a>
@@ -52,7 +52,7 @@ const pageLayout = html`
       <!-- automatically adds trigger='click' from the default config -->
       <a
       href="#dialog-buttons"
-      au-post="dialog-buttons?open"
+      au-ced="post dialog-buttons?open"
       au-target="main"
       au-swap="innerHTML"
       >Dialog Buttons</a>

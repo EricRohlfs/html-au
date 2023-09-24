@@ -7,11 +7,13 @@ export type auMetaType = {
   trigger:string
   targetSelector: string|null
   server: string| null
-  auGet: string|null
-  auPost: string|null
+  // auGet: string|null
+  // auPost: string|null
+  //auCed: string
+  auCed:{raw:string, verb:string, tagName:string, qs:URLSearchParams}
   auSwap: string // auSwapType
   verb: string,
-  searchParams: URLSearchParams,
+  // searchParams: URLSearchParams,
   preserveFocus: boolean
   attachSwapped:boolean
   auInclude: string|null
@@ -55,6 +57,9 @@ export type auConfigType ={
   defaultAttributes:{
     'au-swap':string
     'au-trigger':string
+  }
+  auCed:{
+    verb:'post'|'get'
   }
 }
 
