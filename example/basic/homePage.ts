@@ -39,7 +39,7 @@ export class HomeView extends HTMLElement{
     <section>
       <h3>Hello World: invoking a built-in custom element</h3>
       <div
-        au-get='div?is=hello-world-div&msg=Hello World'
+        au-ced='get div?is=hello-world-div&msg=Hello World'
         au-target='next'
         au-trigger='click'>Click Here</div>
       <div></div>
@@ -47,12 +47,12 @@ export class HomeView extends HTMLElement{
 
     <section>
       <h3>Hello Input: invoking a built-in custom element</h3>
-      <p><i>input name must match a parameter in the au-get. </i></p>
+      <p><i>input name must match a parameter in the au-ced. </i></p>
       <label> Enter a message </label>
       <input
         type='text'
         name='msg'
-        au-get='div?is=hello-world-div&msg=Hello World'
+        au-ced='get div?is=hello-world-div&msg=Hello World'
         au-target='next'
         au-trigger='input'/>
       <div></div>

@@ -27,7 +27,7 @@ export class DialogGetExample extends HTMLDialogElement {
 export const buttonOpenGetExample = createElement<HTMLButtonElement>({
   tagName:'button',
   attributes:{
-    'au-get':`dialog?is=${DIALOG_GET}&open`,
+    'au-ced':`get dialog?is=${DIALOG_GET}&open`,
     'au-target':`#dialog-placeholder`,
     'au-swap': swapOptions.innerHTML,
     'au-trigger':'click'

@@ -1,7 +1,7 @@
-import { objectToQueryParams } from "./common"
-import { makeFormData } from "./auFormData"
-import { getIncludeElement } from "./auTargetSelector"
-import { auCedEle, pluginData } from "./types"
+import { objectToQueryParams } from "../common.js"
+import { makeFormData } from "./auFormData.js"
+import { auCedEle, auMetaType, pluginArgs } from "../types.js"
+import { getIncludeElement } from "../eventListener/parseAuTarget.js"
 
 //todo:need to test this function
 function toFormData(o) {
@@ -9,10 +9,9 @@ function toFormData(o) {
   return Object.entries(o).reduce((d,e) => (d.append(...e),d), new FormData())
 }
 
+const errorMsg = (newEle:auCedEle)=>{return `Developer, you are using the au-post attribute without a property of body or model for component named ${newEle?.tagName}. Either add body or model to the component, or remove the post hint`}
 
-const errorMsg = (newEle:auCedEle)=>{return `Developer, you are using the au-post attribute without a property of body or model for component named ${newEle?.tagName}. Either add body or model to the component, or use au-get.`}
-
-export const isAuServer = (auMeta) => { return auMeta.server?.length > 0 }
+export const isAuServer = (auMeta:auMetaType) => { return auMeta.server?.length > 0 }
 
 /**
  * <div au-server="post ./users"
@@ -23,7 +22,7 @@ export const isAuServer = (auMeta) => { return auMeta.server?.length > 0 }
  * <div au-server="post as formdata ./users"
  * 
  */
-export async function attachServerResp(plugIn:pluginData){
+export async function attachServerRespToCedEle(plugIn:pluginArgs){
   if (plugIn.auMeta.server) {
     const [verb, url] = plugIn.auMeta.server.split(' ')
 
@@ -38,7 +37,7 @@ export async function attachServerResp(plugIn:pluginData){
       const hasModel = plugIn.cedEle.hasOwnProperty('model')
       if (hasBody) {
         // since we merged, shouldn't have duplicates
-        // todo: test this out and uncomment
+        // todo: test this out and uncomment the toFormData(merged) line
         // newEle.body = toFormData(merged)
       }
       if (hasModel) {
@@ -63,7 +62,7 @@ export async function attachServerResp(plugIn:pluginData){
       const hasModel = plugIn.cedEle.hasOwnProperty('model');
       if (hasBody) {
         // since we merged, shouldn't have duplicates
-        // todo: need to test this out and turn on if it works
+         // todo: test this out and uncomment the toFormData(merged) line
         //newEle.body = toFormData(merged)
       }
       if (hasModel) {
@@ -73,7 +72,5 @@ export async function attachServerResp(plugIn:pluginData){
         throw new Error(errorMsg(plugIn.cedEle))
       }
     }
-
-
   }
 }

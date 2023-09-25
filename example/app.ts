@@ -1,4 +1,4 @@
-import {CED, auObserver, createElement, defineElement, html} from '../src/index.js';
+import {CED, auObserver, createElement, defineElement, html, defaultConfig} from '../src/index.js';
 import './basic/clickCounter.js'
 import './user-form/index.js'
 import './dialog/dialogButtons.js'
@@ -6,7 +6,7 @@ import { HelloWorldDiv } from './basic/helloWorld.js';
 
 defineElement('hello-msg', HelloWorldDiv,'div')
 
-auObserver(document.body);
+auObserver(document.body, defaultConfig);
 
 const pageLayout = html`
   <h1>Examples</h1>
@@ -16,14 +16,14 @@ const pageLayout = html`
       au-ced='get div?is=hello-msg&msg=Hello World'
       au-swap="innerHTML"
       au-target="main"
-      >Hello Message au-get</button>
+      >Hello Message using get</button>
     <!-- todo this should still work and copy the query params over -->
     <button
       au-href="#div?is=hello-msg&msg=Hello"
       au-ced="post div?is=hello-msg&msg=Hello"
       au-swap="innerHTML"
       au-target="main"
-      > Hello Message au-post</button>
+      > Hello Message post</button>
 
     <a 
       href="#click-counter"

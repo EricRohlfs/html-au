@@ -1,4 +1,4 @@
-import { auObserver} from "../../src/index.js";
+import { auObserver, defaultConfig} from "../../src/index.js";
 import { createElement, defineElement } from '../../src/utils/index.js';
 import { ClickCounter } from "./clickCounter.js";
 import { HelloWorldDiv } from "./helloWorld.js";
@@ -17,6 +17,6 @@ const hv = createElement<HomeView>({
 })
 
 
-auObserver(document.body)
+auObserver(document.body, defaultConfig)
 document.body.appendChild(hv)
 

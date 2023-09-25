@@ -1,8 +1,13 @@
-import { auConfigType } from "src/types";
+import { auConfigType } from "../../src/types.js";
 
-export function parseAuCed(raw:string, auConfig:auConfigType){
+export function parseAuCed(raw:string, auConfig:auConfigType, ele){
   // Split the raw string by '?' to separate the verb and query string
   // Check if the raw string contains a ' ' character to split verb and tagName
+  if(!raw){
+    // note: this could be an input attribute where a form is listening for input or change
+    // console.warn('No au-ced attribute to parse')
+    throw new Error(`au-ced attribute cannot be empty on ele ${ele.tagName}`)
+  }
   const spaceIndex = raw.indexOf(' ');
 
   // Initialize verb and tagName with default values

@@ -1,9 +1,9 @@
-import { pluginData } from "./types";
+import { pluginArgs } from "./types.js";
 
 /**
  * It is recommended that you implement your own post and get functions.
  */
-export async function postForm(url:string, body, plugin:pluginData) {
+export async function postForm(url:string, body, plugin:pluginArgs) {
   try {
     if (body === undefined) { return; }
     const response = await fetch(url, {
@@ -20,7 +20,7 @@ export async function postForm(url:string, body, plugin:pluginData) {
     console.error('There was a problem with the fetch operation:', error);
   }
 }
-export async function postJson(url:string, postData, plugin:pluginData ) {
+export async function postJson(url:string, postData, plugin:pluginArgs ) {
   if (postData === undefined) { return; }
 
   try {
@@ -44,7 +44,7 @@ export async function postJson(url:string, postData, plugin:pluginData ) {
   }
 }
 
-export async function getJson(url, plugin:pluginData) {
+export async function getJson(url, plugin:pluginArgs) {
   if (url === undefined) { 
     // todo: throw a user friendly error that the url is undefined?
     // and which component needs to be fixed

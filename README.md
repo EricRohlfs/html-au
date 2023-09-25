@@ -63,7 +63,6 @@ export class HelloWorld extends HTMLElement{
   }
 }
 ```
-
 ## Example Click Counter
 
 ``` js

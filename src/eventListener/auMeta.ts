@@ -1,6 +1,6 @@
 import { auConfigType, auMetaType } from '../types.js';
 import { CED } from '../utils/index.js';
-import { defaultConfig } from 'src/defaultConfig.js';
+// import { defaultConfig } from '../../src/defaultConfig.js';
 import { parseAuCed } from './parseAuCed.js';
 import { guessTheTargetSelector } from './parseAuTarget.js';
 
@@ -8,11 +8,11 @@ import { guessTheTargetSelector } from './parseAuTarget.js';
 export async function auMetaPrep(ele: HTMLElement, auConfig: auConfigType): Promise<Partial<auMetaType>>{
   const brains = []
   if (ele.getAttribute('au-trigger') === null) {
-    ele.setAttribute('au-trigger', defaultConfig.defaultAttributes['au-trigger']);
+    ele.setAttribute('au-trigger', auConfig.defaultAttributes['au-trigger']);
     brains.push('au-trigger was empty. The default in the was added for you.')
   }
   if (ele.getAttribute('au-swap') === null) {
-    ele.setAttribute('au-swap', defaultConfig.defaultAttributes['au-swap']);
+    ele.setAttribute('au-swap', auConfig.defaultAttributes['au-swap']);
     brains.push('au-swap was empty. The default in the config was added for you.')
   }
   const auMeta = {
@@ -22,19 +22,17 @@ export async function auMetaPrep(ele: HTMLElement, auConfig: auConfigType): Prom
   return auMeta
 }
 
-
-
 export async function getAuMeta(ele: HTMLElement, initialMeta:Partial<auMetaType> ,auConfig: auConfigType): Promise<auMetaType> {
 
   const auMeta = {
     trigger: initialMeta.trigger,
     server: ele.getAttribute('au-server'),
     targetSelector: ele.getAttribute('au-target'),
-    auCed: parseAuCed(ele.getAttribute('au-ced'), auConfig),
+    auCed: parseAuCed(ele.getAttribute('au-ced'), auConfig, ele),
     auInclude: ele.getAttribute('au-include'),
     auSwap: ele.getAttribute('au-swap'),
-    auHref: ele.getAttribute('au-href'),
-    preserveFocus: ele.getAttribute('au-preserve-focus') !== null,
+    // auHref: ele.getAttribute('au-href'),
+    // preserveFocus: ele.getAttribute('au-preserve-focus') !== null,
     // attachSwapped: ele.getAttribute('au-attach-swapped') !== null,
     isThis: false,
     brains: initialMeta.brains,
@@ -56,7 +54,6 @@ export async function getAuMeta(ele: HTMLElement, initialMeta:Partial<auMetaType
 
   guessTheTargetSelector(ele, auMeta)
 
-      // add any querystring params from au-get or au-post
     // attributes are nice and allow for outer configuration like classes and such
     // but attributes do clutter up the dom if just needed as properties
     // if we only passed properties, then the user could have getters/setters that do set the attribute
@@ -76,7 +73,7 @@ export async function getAuMeta(ele: HTMLElement, initialMeta:Partial<auMetaType
       }
     }
 
-   // todo:revisit this use case
+   // todo: revisit this use case
     // could have an overwrite situation when the searchParam and an existing attribute are the same.
     if (auMeta.isThis) {
       // copy existing attributes to new element

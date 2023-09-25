@@ -30,10 +30,18 @@ const getCallback = (auConfig:auConfigType) => {
 /**
  * usage
  * auObserver(document.body)
- * or if you want control over the HTTP requests
+ * or if you want control over the HTTP requests or other options
  * auObserver(document.body, myConfig)
  */
-export function auObserver(ele, auConfig:auConfigType = defaultConfig) {
+export function auObserver(ele:HTMLElement, auConfig:auConfigType) {
+
+  if(!Object.isFrozen(auConfig)){
+    // organize plugins once to improve performance
+    auConfig._plugins = {
+      atEnd:  auConfig.plugins.filter(p=>p.when === 'end')
+    }
+    Object.freeze(auConfig);
+  }
   const callback = getCallback(auConfig);
   const auObserver = new MutationObserver(callback);
   auObserver.observe(ele, { attributes: true, subtree: true, childList: true })

@@ -12,7 +12,7 @@ describe('auObserver',()=>{
     host = createElement<HTMLDivElement>({
       tagName:'div'
     })
-    auObserver(host)
+    auObserver(host, defaultConfig)
   })
 
   it('processes auElements', (done)=>{
@@ -67,9 +67,6 @@ describe('getAuMeta',()=>{
     // @ts-ignore
     expect(auMeta.trigger).toBe(inputCED.attributes['au-trigger'] as string)
   })
-  // it('au-get is null',()=>{
-  //   expect(auMeta).toBe(null)
-  // })
   it('au-swap is null',()=>{
     expect(auMeta.auSwap).toBe('outerHTML')
   })
@@ -79,9 +76,7 @@ describe('getAuMeta',()=>{
   it('searchParams tobe is=hello-world-div',()=>{
     expect(auMeta.auCed.qs.get('is')).toBe('hello-world-div')
   })
-  it('preserveFocus is null',()=>{
-    expect(auMeta.preserveFocus).toBe(false)
-  })
+
   it('auInclude is null',()=>{
     expect(auMeta.auInclude).toBe(null)
   })
