@@ -13,5 +13,8 @@ export const defaultConfig = {
   defaultAttributes:{
     'au-swap': swapOptions.outeHTML,
     'au-trigger':triggerOptions.click,
+  },
+  auCed:{
+    verb:'post'
   }
 } as auConfigType

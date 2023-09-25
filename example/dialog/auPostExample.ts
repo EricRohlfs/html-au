@@ -17,7 +17,7 @@ export class DialogPostExample extends HTMLDialogElement{
       <!-- multiple ways this could be done, but basic is to just
            re-render the dialog without the open attribute/querystring -->
       <button
-        au-get="dialog?is=${DIALOG_POST}"
+        au-ced="get dialog?is=${DIALOG_POST}"
         au-target='closest dialog'
         au-trigger='click'
         au-swap='delete'

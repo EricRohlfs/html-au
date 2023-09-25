@@ -78,7 +78,7 @@ export class UserForm extends HTMLElement {
             type="submit"
             value="submit"
             au-trigger="click"
-            au-post="${USER_FORM}"
+            au-ced="post ${USER_FORM}"
             au-include="closest ${USER_FORM}"
             au-server="post ${apiUrl}"
             >Submit POST</button>
@@ -86,7 +86,7 @@ export class UserForm extends HTMLElement {
             type="submit"
             value="submit"
             au-trigger="click"
-            au-post="${USER_FORM}"
+            au-ced="post ${USER_FORM}"
             au-include="closest ${USER_FORM}"
             au-server="get ${apiUrl}"
             >Submit GET</button>

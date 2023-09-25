@@ -10,7 +10,7 @@ export class DialogGetExample extends HTMLDialogElement {
       <!-- multiple ways this could be done, but basic is to just
            re-render the dialog without the open attribute/querystring -->
       <button
-        au-get="dialog?is=${DIALOG_GET}"
+        au-ced="get dialog?is=${DIALOG_GET}"
         au-target='closest dialog'
         au-swap='${swapOptions.delete}'
         au-trigger='click'

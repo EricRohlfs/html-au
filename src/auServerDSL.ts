@@ -1,8 +1,7 @@
 import { objectToQueryParams } from "./common"
-import { getJson, postJson } from "./fetcher"
-import { makeFormData } from "./makeFormData"
-import { getIncludeElement } from "./targetSelectorDSL"
-import { auElementType, auMetaType } from "./types"
+import { makeFormData } from "./auFormData"
+import { getIncludeElement } from "./auTargetSelector"
+import { auCedEle, pluginData } from "./types"
 
 //todo:need to test this function
 function toFormData(o) {
@@ -11,7 +10,7 @@ function toFormData(o) {
 }
 
 
-const errorMsg = (newEle:auElementType)=>{return `Developer, you are using the au-post attribute without a property of body or model for component named ${newEle?.tagName}. Either add body or model to the component, or use au-get.`}
+const errorMsg = (newEle:auCedEle)=>{return `Developer, you are using the au-post attribute without a property of body or model for component named ${newEle?.tagName}. Either add body or model to the component, or use au-get.`}
 
 export const isAuServer = (auMeta) => { return auMeta.server?.length > 0 }
 
@@ -24,52 +23,54 @@ export const isAuServer = (auMeta) => { return auMeta.server?.length > 0 }
  * <div au-server="post as formdata ./users"
  * 
  */
-export async function attachServerResp(ele:HTMLElement, auMeta:auMetaType, newEle: auElementType, auConfig):Promise<void> {
-  if (auMeta.server) {
-    const [verb, url] = auMeta.server.split(' ')
+export async function attachServerResp(plugIn:pluginData){
+  if (plugIn.auMeta.server) {
+    const [verb, url] = plugIn.auMeta.server.split(' ')
 
     if (verb === 'post') {
-      const formDataEle = getIncludeElement(ele, auMeta)
-      const fd1 = makeFormData(formDataEle)
-      const model = Object.fromEntries(fd1.entries())
-      const json = await auConfig.serverPost(url, model)
+      const formDataEle = getIncludeElement(plugIn.ele, plugIn.auMeta)
+      const fd = makeFormData(formDataEle)
+      const model = Object.fromEntries(fd.entries())
+      const json = await plugIn.auConfig.serverPost(url, model, plugIn)
+      // @ts-ignore
       const merged = {...model, ...json }
-      const hasBody = newEle.hasOwnProperty('body')
-      const hasModel = newEle.hasOwnProperty('model')
+      const hasBody = plugIn.cedEle.hasOwnProperty('body')
+      const hasModel = plugIn.cedEle.hasOwnProperty('model')
       if (hasBody) {
         // since we merged, shouldn't have duplicates
         // todo: test this out and uncomment
         // newEle.body = toFormData(merged)
       }
       if (hasModel) {
-        newEle.model = merged
+        plugIn.cedEle.model = merged
       }
       if (!hasBody && !hasModel) {
-        throw new Error(errorMsg(newEle))
+        throw new Error(errorMsg(plugIn.cedEle))
       }
     }
 
     if (verb === 'get') {
       //todo: consider if there are already querystring params on the url and merge them in too
-      const formDataEle = getIncludeElement(ele, auMeta);
+      const formDataEle = getIncludeElement(plugIn.ele, plugIn.auMeta);
       const fd = makeFormData(formDataEle);
       const model = Object.fromEntries(fd.entries());
       const qs = objectToQueryParams(model);
       const urlWithQs = `${url}${qs}`;
-      const json = await auConfig.serverGet(urlWithQs);
+      const json = await plugIn.auConfig.serverGet(urlWithQs, plugIn);
+      // @ts-ignore
       const merged = {...model, ...json };
-      const hasBody = newEle.hasOwnProperty('body');
-      const hasModel = newEle.hasOwnProperty('model');
+      const hasBody = plugIn.cedEle.hasOwnProperty('body');
+      const hasModel = plugIn.cedEle.hasOwnProperty('model');
       if (hasBody) {
         // since we merged, shouldn't have duplicates
         // todo: need to test this out and turn on if it works
         //newEle.body = toFormData(merged)
       }
       if (hasModel) {
-        newEle.model = merged
+        plugIn.cedEle.model = merged
       }
       if (!hasBody && !hasModel) {
-        throw new Error(errorMsg(newEle))
+        throw new Error(errorMsg(plugIn.cedEle))
       }
     }
 

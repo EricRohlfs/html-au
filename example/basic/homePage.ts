@@ -19,7 +19,7 @@ export class HomeView extends HTMLElement{
       <h3>User Details From Example: two components</h3>
       <form
         is="user-details-form"
-        au-post="user-details-info"
+        au-ced="post user-details-info"
         au-trigger="input"
         au-target="user-details-info"
       ></form>
@@ -30,7 +30,7 @@ export class HomeView extends HTMLElement{
       <h3>User Details From Example: as a single component</h3>
       <form
         is="user-details-single"
-        au-post="this"
+        au-ced="post this"
         au-trigger="input"
         au-preserve-focus
       ></form>
