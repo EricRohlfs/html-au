@@ -49,7 +49,7 @@ export class DialogButtons extends HTMLElement {
         ${disabled}
         value="show">post dialog.show</button>
       <!-- Example 3-->
-      <!-- notice missing trigger attribute will use au-post --> 
+      <!-- notice missing trigger attribute will use au-ced post --> 
       <button
         au-ced="post dialog-buttons"
         au-trigger="click"

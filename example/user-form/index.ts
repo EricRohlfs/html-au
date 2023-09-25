@@ -48,7 +48,7 @@ export class UserForm extends HTMLElement {
             <li>converts the FormData to json object</li>
             <li>makes a server side api call with the json object</li>
             <li>merges the server response with the original json object</li>
-            <li>creates the new custom element as defined by the au-post </li>
+            <li>creates the new custom element as defined by the au-ced post </li>
             <li>binds the merged data object to new custom element</li>
             <li>the new element is added to the DOM</li>
             <li>the new elements connectedCallback is called and the component is rendered with the new data</li>

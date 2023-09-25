@@ -55,7 +55,7 @@ describe('getAuMeta',()=>{
     const initialMeta = await auMetaPrep(inputEle, defaultConfig)
     auMeta = await getAuMeta(inputEle, initialMeta, defaultConfig)
   })
-  it('has au-post',()=>{
+  it('has au-ced',()=>{
     // @ts-ignore
     expect(auMeta.auCed.raw).toBe(inputCED.attributes['au-ced'] as string)
   })

@@ -9,7 +9,7 @@ function toFormData(o) {
   return Object.entries(o).reduce((d,e) => (d.append(...e),d), new FormData())
 }
 
-const errorMsg = (newEle:auCedEle)=>{return `Developer, you are using the au-post attribute without a property of body or model for component named ${newEle?.tagName}. Either add body or model to the component, or remove the post hint`}
+const errorMsg = (newEle:auCedEle)=>{return `Developer, you are using the au-ced attribute without a property of body or model for component named ${newEle?.tagName}. Either add body or model to the component, or remove the post hint`}
 
 export const isAuServer = (auMeta:auMetaType) => { return auMeta.server?.length > 0 }
 

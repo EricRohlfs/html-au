@@ -59,12 +59,12 @@ export class HomeView extends HTMLElement{
     </section>
 
     <section>
-      <h3>Hello Input: same as above but uses au-post</h3>
+      <h3>Hello Input: same as above but uses ced post</h3>
       <label> Enter a message </label>
       <input
         type='text'
         name='msg'
-        au-post='div?is=hello-world-div'
+        au-ced='post div?is=hello-world-div'
         au-target='next'
         au-trigger='input'/>
       <div></div>
