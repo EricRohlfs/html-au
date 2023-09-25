@@ -3,7 +3,7 @@ HTML-AU is inspired by HTMX but uses client side JavaScript native customElement
 
 Unlike HTMX, HTML-AU does not try to conform to [HATEOAS](https://en.wikipedia.org/wiki/HATEOAS)
 
-Uses the fundamentals of get and post to pass data between components. Can even pass data to the sever the pass the data to the response.
+Uses the fundamentals of get and post to pass data between components. Can even pass data to the sever the pass then pass the response to the component.
 
 ## Install
 ```npm i html-au```
