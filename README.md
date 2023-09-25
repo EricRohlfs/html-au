@@ -1,5 +1,5 @@
 # HTML-AU
-HTML-AU is inspired by HTMX but uses client side JavaScript native customElements to generate html.
+HTML-AU is inspired by HTMX. Instead of rendering HTML on the server like HTMX, HTML-AU uses client side JavaScript native customElements to generate html.
 
 Unlike HTMX, HTML-AU does not try to conform to [HATEOAS](https://en.wikipedia.org/wiki/HATEOAS)
 
@@ -25,7 +25,7 @@ document.body.append(someHtml)
 ```
 
 ## Project Technical Summary
-Using HTML attributes to make a DSL for a set of use cases that will re-render the an entire component. Inspired by HTMX.
+An html attribute based reactive framework for web components. Inspired by HTMX.
 HTMX renders html on the server. HTML-AU renders html on the client using the ES6 customElement specification.  The idea being if the amount of code to write to generate html is about the same on the client vs the server, save the http call and do the work on the client. With a hook to send data to and from the server. Which is helpful for existing api based web projects.
 
 CED Component Element Description
