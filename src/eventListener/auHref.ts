@@ -1,14 +1,15 @@
 import { pluginData } from "src/types";
 
-export async function auHref(plugIn: pluginData) {
-  if (plugIn.auMeta.auHref === null) { return }
 
+
+export async function auHref(plugIn: pluginData, browserWindow) {
+  if (plugIn.auMeta.auHref === null) { return }
+  let hash = plugIn.auMeta.auHref
   if(plugIn.auMeta.auHref === 'use au-ced'){
     // todo:might want to whitelist or sanitize the tagname
-    window.location.hash = `#${plugIn.auMeta.auCed.tagName}?${plugIn.auMeta.auCed.qs}`
-    return
+    hash = `#${plugIn.auMeta.auCed.tagName}?${plugIn.auMeta.auCed.qs}`
   }
   // todo: this could be more sophisticated and use window.history.pushState
-  window.location.hash = plugIn.auMeta.auHref
-
+  browserWindow.location.hash = hash
+  return hash
 }

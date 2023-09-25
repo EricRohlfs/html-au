@@ -99,7 +99,7 @@ export async function basicEventListener(ele: auElementType, cmd: string, initia
       focusEle.setSelectionRange(focusEle.value.length, focusEle.value.length);
     }
 
-    auHref(plugIn)
+    auHref(plugIn, window)
 
     removeOldEventListeners(toDispose)
   }, { signal: ele.auAbortController.signal })
