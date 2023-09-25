@@ -1,6 +1,6 @@
 {
   "name": "html-au",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "HTML driven reactivity with customElements",
   "author": "Eric Rohlfs",
   "main": "dist/js/index.js",
