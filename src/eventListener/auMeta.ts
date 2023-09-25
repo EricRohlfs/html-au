@@ -33,6 +33,7 @@ export async function getAuMeta(ele: HTMLElement, initialMeta:Partial<auMetaType
     auCed: parseAuCed(ele.getAttribute('au-ced'), auConfig),
     auInclude: ele.getAttribute('au-include'),
     auSwap: ele.getAttribute('au-swap'),
+    auHref: ele.getAttribute('au-href'),
     preserveFocus: ele.getAttribute('au-preserve-focus') !== null,
     // attachSwapped: ele.getAttribute('au-attach-swapped') !== null,
     isThis: false,

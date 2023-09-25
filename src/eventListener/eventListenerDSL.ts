@@ -7,6 +7,7 @@ import { createElement } from '../utils/index.js';
 import { makeFormData } from '../auFormData.js';
 import { attachServerResp, isAuServer } from '../auServerDSL.js';
 import { getAuMeta } from './auMeta.js';
+import { auHref } from './auHref.js';
 
 /**
  * destroy the old event listener so we don't degrade performance
@@ -98,8 +99,10 @@ export async function basicEventListener(ele: auElementType, cmd: string, initia
       focusEle.setSelectionRange(focusEle.value.length, focusEle.value.length);
     }
 
+    auHref(plugIn)
+
     removeOldEventListeners(toDispose)
-  }, { signal: (ele as auElementType).auAbortController.signal })
+  }, { signal: ele.auAbortController.signal })
 }
 
 
