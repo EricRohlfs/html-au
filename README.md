@@ -3,7 +3,7 @@ HTML-AU is inspired by HTMX. Instead of rendering HTML on the server like HTMX, 
 
 Unlike HTMX, HTML-AU does not try to conform to [HATEOAS](https://en.wikipedia.org/wiki/HATEOAS)
 
-Uses the fundamentals of get and post to pass data between components. Can even pass data to the sever the pass then pass the response to the component.
+Uses the fundamentals of get and post to pass data between components. Can even pass data to the sever then pass the response to the component.
 
 ## Install
 ```npm i html-au```
@@ -93,9 +93,8 @@ export class ClickCounter extends HTMLElement {
 
   connectedCallback() {
     const previousCount = Number(this?.body?.get('counter') ?? 0)
-    const count = (previousCount + 1).toString()
     const frag = html`
-      <input name='counter' value='${count}' />
+      <input name='counter' value='${(previousCount + 1).toString()}' />
       <button
         au-trigger='click'
         au-ced='${CLICK_COUNTER}'
