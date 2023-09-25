@@ -1,4 +1,4 @@
-import { auConfigType, auElementType, auMetaType } from '../types.js';
+import { auConfigType, auMetaType } from '../types.js';
 import { CED } from '../utils/index.js';
 import { defaultConfig } from 'src/defaultConfig.js';
 import { parseAuCed } from './parseAuCed.js';
