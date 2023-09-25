@@ -11,19 +11,19 @@ auObserver(document.body);
 const pageLayout = html`
   <h1>Examples</h1>
   <nav>
-    <a
-      href="#"
-      au-get='div?is=hello-msg&msg=Hello World'
+    <button
+      au-href="use au-ced"
+      au-ced='get div?is=hello-msg&msg=Hello World'
       au-swap="innerHTML"
       au-target="main"
-      >Hello Message au-get</a>
+      >Hello Message au-get</button>
     <!-- todo this should still work and copy the query params over -->
-    <a
-      href="#"
+    <button
+      au-href="#div?is=hello-msg&msg=Hello"
       au-ced="post div?is=hello-msg&msg=Hello"
       au-swap="innerHTML"
       au-target="main"
-      > Hello Message au-post</a>
+      > Hello Message au-post</button>
 
     <a 
       href="#click-counter"

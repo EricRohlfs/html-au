@@ -9,6 +9,7 @@ export type auMetaType = {
   server: string| null
   auCed:{raw:string, verb:string, tagName:string, qs:URLSearchParams}
   auSwap: string // auSwapType
+  auHref:string
   preserveFocus: boolean
   auInclude: string|null
   isThis: boolean,
