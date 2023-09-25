@@ -1,5 +1,6 @@
 import { auObserver,  createElement, defineElement, html } from "../../src";
 import { DialogButtons } from "./dialogButtons";
+import './dialogButtons.js'
 
 // want to get the observer running first thing
 auObserver(document.body)

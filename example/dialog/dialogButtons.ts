@@ -25,7 +25,7 @@ export class DialogButtons extends HTMLElement {
 
     // todo: could add template support to non-shadowdom au components, then no js will be needed
     const dialogBtn = dialog?.querySelector(':scope button')
-    dialogBtn?.setAttribute('au-get', 'dialog-buttons')
+    dialogBtn?.setAttribute('au-ced', 'get dialog-buttons')
     dialogBtn?.setAttribute('au-target', 'closest dialog-buttons')
     dialogBtn?.setAttribute('au-swap','outerHTML')
   }
