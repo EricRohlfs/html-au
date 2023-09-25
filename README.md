@@ -3,8 +3,26 @@ HTML-AU is inspired by HTMX but uses client side JavaScript native customElement
 
 Unlike HTMX, HTML-AU does not try to conform to [HATEOAS](https://en.wikipedia.org/wiki/HATEOAS)
 
+Uses the fundamentals of get and post to pass data between components. Can even pass data to the sever the pass the data to the response.
+
 ## Install
 ```npm i html-au```
+
+## Quick Start
+
+``` js
+// app.js
+import './src/helloWorld.js' // your customElement
+import {auObserver, defaultConfig, html} from '../src/index.js';
+auObserver(document.body, defaultConfig)
+// assuming you have a component registered as hello-world
+const someHtml = html`
+      <button au-trigger='click' au-target='main' au-ced='hello-world?msg=nice to meet you'>click</button>
+      <main></main>
+`
+document.body.append(someHtml)
+
+```
 
 ## Project Technical Summary
 Using HTML attributes to make a DSL for a set of use cases that will re-render the an entire component. Inspired by HTMX.
