@@ -1,5 +1,5 @@
 import { defaultConfig } from "../src/defaultConfig.js"
-import { getAuMeta } from "../src/eventListener/auMeta.js"
+import { auMetaPrep, getAuMeta } from "../src/eventListener/auMeta.js"
 import { auObserver} from "../src/index.js"
 import { auElementType, auMetaType} from "../src/types.js"
 import { CED, createElement, html } from "../src/index.js"
@@ -52,7 +52,8 @@ describe('getAuMeta',()=>{
 
   beforeAll(async ()=>{
     inputEle = createElement<auElementType>(inputCED)
-    auMeta = await getAuMeta(inputEle, defaultConfig)
+    const initialMeta = await auMetaPrep(inputEle, defaultConfig)
+    auMeta = await getAuMeta(inputEle, initialMeta, defaultConfig)
   })
   it('has au-post',()=>{
     // @ts-ignore
