@@ -4,25 +4,19 @@ HTML-AU is inspired by HTMX. Instead of rendering HTML on the server like HTMX, 
 Uses the fundamentals of get and post to pass data between attributes and components or attributes and the server.
 
 ``` html
-  .. in head
-  <script type="module>">
-    import { auObserver, defaultConfig } form './html-au/dist/browser/js/index.js';
-    import { HelloMsg } from './hello-msg.js'
-    customElements.define('hello-msg', HelloMsg);
-    auObserver(document.body, defaultConfig)
-  </script>
-  ... in body
   <button au-trigger='click' au-ced='post hello-msg' au-target="main" au-swap='innerHTML' name='msg' value='Hello World'>Show Message</button>
+  // before click
   <main></main>
-  // returns
+  // after click
   <main><hello-msg>Hello World</hello-msg></main>
  ```
 
 Post to the SERVER first, to translate the message, then post to the component to render on the page
  ``` html
   <button au-trigger='click' au-server='post ./api/translate/german' au-ced='post hello-msg' au-target="main" au-swap='innerHTML' name='msg' value='Hello World'>Show Message</button>
+  // before click
   <main></main>
-  // returns
+  // after click
   <main><hello-msg>Hallo Welt</hello-msg></main>
  ```
 
@@ -30,25 +24,10 @@ Unlike HTMX, HTML-AU does not try to conform to [HATEOAS](https://en.wikipedia.o
 ## Install
 ```npm i html-au```
 
-## Quick Start
-
-``` js
-// app.js
-import './src/helloWorld.js' // your customElement
-import {auObserver, defaultConfig, html} from '../src/index.js';
-auObserver(document.body, defaultConfig)
-// assuming you have a component registered as hello-world
-const someHtml = html`
-      <button au-trigger='click' au-target='main' au-ced='hello-world?msg=nice to meet you'>click</button>
-      <main></main>
-`
-document.body.append(someHtml)
-
-```
 
 ## Project Technical Summary
-An html attribute based reactive framework for web components. Inspired by HTMX.
-HTMX renders html on the server. HTML-AU renders html on the client using the ES6 customElement specification.  The idea being if the amount of code to write to generate html is about the same on the client vs the server, save the http call and do the work on the client. With a hook to send data to and from the server. Which is helpful for existing api based web projects.
+HTML-AU is an attribute based 'reactive' (really re-rendering) framework for web components. Inspired by HTMX.
+HTML-AU renders html on the client using the ES6 customElement specification. HTMX renders html on the server.
 
 CED Component Element Description
 
