@@ -1,10 +1,32 @@
 # HTML-AU
 HTML-AU is inspired by HTMX. Instead of rendering HTML on the server like HTMX, HTML-AU uses client side JavaScript native customElements to generate html.
 
+Uses the fundamentals of get and post to pass data between attributes and components or attributes and the server.
+
+``` html
+  .. in head
+  <script type="module>">
+    import { auObserver, defaultConfig } form './html-au/dist/browser/js/index.js';
+    import { HelloMsg } from './hello-msg.js'
+    customElements.define('hello-msg', HelloMsg);
+    auObserver(document.body, defaultConfig)
+  </script>
+  ... in body
+  <button au-trigger='click' au-ced='post hello-msg' au-target="main" au-swap='innerHTML' name='msg' value='Hello World'>Show Message</button>
+  <main></main>
+  // returns
+  <main><hello-msg>Hello World</hello-msg></main>
+ ```
+
+Post to the SERVER first, to translate the message, then post to the component to render on the page
+ ``` html
+  <button au-trigger='click' au-server='post ./api/translate/german' au-ced='post hello-msg' au-target="main" au-swap='innerHTML' name='msg' value='Hello World'>Show Message</button>
+  <main></main>
+  // returns
+  <main><hello-msg>Hallo Welt</hello-msg></main>
+ ```
+
 Unlike HTMX, HTML-AU does not try to conform to [HATEOAS](https://en.wikipedia.org/wiki/HATEOAS)
-
-Uses the fundamentals of get and post to pass data between components. Can even pass data to the sever then pass the response to the component.
-
 ## Install
 ```npm i html-au```
 

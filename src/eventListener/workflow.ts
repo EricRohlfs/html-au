@@ -1,4 +1,4 @@
-import { auObserver } from '../auObserver.js';
+import { _auObserver } from '../auObserver.js';
 import { isAuElement } from '../common.js';
 import { getIncludeElement, getTargetEle, replaceAuTarget } from './parseAuTarget.js';
 import { auCedEle, auElementType, pluginArgs, workflowArgs } from '../types.js';
@@ -64,7 +64,7 @@ export async function workflow(wf: workflowArgs) {
   cedEle.auMeta = { ...auMeta } // add the metadata for debugging and other edge use cases like maybe they want to parse the au-post query params
   // the observer will decide if it needs to wire up as another auElement
   // todo: validate this is still necessary.
-  auObserver(cedEle, auConfig)
+  _auObserver(cedEle, auConfig)
 
   const target = getTargetEle(ele, auMeta.targetSelector)
   plugInArgs.targetEle = target
