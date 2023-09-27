@@ -41,7 +41,8 @@ export type auElementType = {
   body?: FormData
   model?: any
   attributes: auAttributeTypes
-  auPreviousTree: DocumentFragment
+  // auPreviousTree: DocumentFragment
+  connectedCallback?:()=>void
 } & HTMLElement
 
 
@@ -61,7 +62,10 @@ export type auConfigType = {
     'au-trigger': string
   }
   auCed: {
-    verb: 'post' | 'get'
+    verb: 'post' | 'get' | 'patch'
+  },
+  auInclude:{
+    verb: 'post'|'get'
   }
   plugins: Array<pluginDefinition>
   _plugins: {

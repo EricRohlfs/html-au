@@ -29,7 +29,7 @@ export async function getAuMeta(ele: HTMLElement, initialMeta:Partial<auMetaType
     server: ele.getAttribute('au-server'),
     targetSelector: ele.getAttribute('au-target'),
     auCed: parseAuCed(ele.getAttribute('au-ced'), auConfig, ele),
-    auInclude: ele.getAttribute('au-include'),
+    auInclude:  ele.getAttribute('au-include'), //parseAuInclude(ele.getAttribute('au-include'), auConfig, ele),
     auSwap: ele.getAttribute('au-swap'),
     // auHref: ele.getAttribute('au-href'),
     // preserveFocus: ele.getAttribute('au-preserve-focus') !== null,

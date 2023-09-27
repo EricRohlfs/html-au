@@ -8,6 +8,18 @@ export function parseAuCed(raw:string, auConfig:auConfigType, ele){
     // console.warn('No au-ced attribute to parse')
     throw new Error(`au-ced attribute cannot be empty on ele ${ele.tagName}`)
   }
+
+  if(raw === 'patch'){
+    if(ele.getAttribute('au-include') === null){
+      throw new Error('patch without a component name, most have an associated includes ')
+    }
+    return {
+      raw,
+      verb: 'patch',
+      tagName:'',
+      qs:new URLSearchParams()
+    }
+  }
   const spaceIndex = raw.indexOf(' ');
 
   // Initialize verb and tagName with default values

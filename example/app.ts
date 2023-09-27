@@ -3,6 +3,8 @@ import './basic/clickCounter.js'
 import './user-form/index.js'
 import './dialog/dialogButtons.js'
 import { HelloWorldDiv } from './basic/helloWorld.js';
+import './patch/patch.js';
+import './store/store.js'
 
 defineElement('hello-msg', HelloWorldDiv,'div')
 
@@ -56,6 +58,21 @@ const pageLayout = html`
       au-target="main"
       au-swap="innerHTML"
       >Dialog Buttons</a>
+
+    <a 
+      href="#patch-example"
+      au-ced="post patch-example"
+      au-target="main"
+      au-swap="innerHTML"
+      >Patch Example<a>
+    
+    <a 
+      href="#simple-store"
+      au-ced="patch-example"
+      au-target="main"
+      au-swap="innerHTML"
+      >Simple Store<a>
+      
       
   </nav>
   <main></main>

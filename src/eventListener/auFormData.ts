@@ -18,9 +18,7 @@ export function getSelects(hostEle:HTMLElement) {
     }
     return [val, text]
   })
-
 }
-
 
 
 /**
@@ -39,7 +37,7 @@ export function getSelects(hostEle:HTMLElement) {
  * - object
  
  */
-export function makeFormData(node: HTMLElement): FormData {
+export function makeFormData(node: HTMLElement, ele:HTMLElement): FormData {
   // todo: could see if it is already a form and just return all the controls 
   
   // is single input element so no children to query
@@ -54,7 +52,24 @@ export function makeFormData(node: HTMLElement): FormData {
   const inputs = node.querySelectorAll(':scope input')
   controls.push(...inputs)// might not want to spread here, but quick and easy
   // todo: need to do other controls here
-  controls.push(getSelects(node))
+  const selects = getSelects(node)
+  selects.forEach(sel=>{
+    controls.push(...sel)
+  })
+
+  controls.push({
+    name:'_event_target_tagname',
+    value:ele.tagName.toLowerCase()
+  })
+  controls.push({
+    name:'_event_target_name',
+    // @ts-ignore
+    value:ele?.name?.toLowerCase()
+  })
+  controls.push({
+    name:'_event_target_value',
+    value:ele.tagName.toLowerCase()
+  })
 
   const fd = new FormData()
 
