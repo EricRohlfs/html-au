@@ -1,5 +1,5 @@
 
-import { pluginArgs } from "../../src/types.js";
+import { pluginArgs } from "../types.js";
 
 /** useful where a form is re-rendering and we want to keep the focus. Ideally this wouldn't need to happen, but it's here. */
 export function preserveFocus(plugin: pluginArgs, args) {

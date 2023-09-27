@@ -1,6 +1,6 @@
-import { triggerOptions } from "../../src/auConstants.js";
+import { triggerOptions } from "../auConstants.js";
 import { workflow } from "./workflow.js";
-import { auConfigType, auElementType, eventSetupArgs, workflowArgs } from "../../src/types.js";
+import { auConfigType, auElementType, eventSetupArgs, workflowArgs } from "../types.js";
 import { auMetaPrep } from "./auMeta.js";
 
 const triggerKeys = Object.values(triggerOptions)

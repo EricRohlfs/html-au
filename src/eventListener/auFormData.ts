@@ -1,8 +1,7 @@
 
-
-
 export function getSelects(hostEle:HTMLElement) {
   // todo: might be helpful to return the the options too
+  // todo: how to handle multiple selects
   const selects = hostEle.querySelectorAll(':scope select')
   if (selects === null) { return null }
   return Array.from(selects).map( (selectEle :HTMLSelectElement)=> {
@@ -22,6 +21,32 @@ export function getSelects(hostEle:HTMLElement) {
 
 
 /**
+ * Most targets are buttons that are clicked on 
+ * but could be input elements that are being triggered on every keyup
+ * This is one way to communicate to the component or even the server this information.
+ *  Also remember that the orginial element will soon be destroyed so we can't pass that around.
+ */
+function addEventTarget(controls, ele){
+  controls.push({
+    name:'_event_target_tagname',
+    value:ele.tagName.toLowerCase()
+  })
+
+  // think e.target.name like as in an input element that has a name and a value
+  // but not every element will have a name value
+  controls.push({
+    name:'_event_target_name',
+    // @ts-ignore
+    value:ele?.name?.toLowerCase() ?? ''
+  })
+  controls.push({
+    name:'_event_target_value',
+    value:ele.tagName.toLowerCase()
+  })
+}
+
+
+/**
  * query known form element types and make new FormData out of them.
  * the list of form control elements https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement
  * 
@@ -35,7 +60,8 @@ export function getSelects(hostEle:HTMLElement) {
  *  Not supported
  * - fieldset
  * - object
- 
+ * @node - this could be the element target or it could be the included wrapping element like as in the form
+ * @param ele - the element the event was triggered on basically e.target
  */
 export function makeFormData(node: HTMLElement, ele:HTMLElement): FormData {
   // todo: could see if it is already a form and just return all the controls 
@@ -57,19 +83,7 @@ export function makeFormData(node: HTMLElement, ele:HTMLElement): FormData {
     controls.push(...sel)
   })
 
-  controls.push({
-    name:'_event_target_tagname',
-    value:ele.tagName.toLowerCase()
-  })
-  controls.push({
-    name:'_event_target_name',
-    // @ts-ignore
-    value:ele?.name?.toLowerCase()
-  })
-  controls.push({
-    name:'_event_target_value',
-    value:ele.tagName.toLowerCase()
-  })
+  addEventTarget(controls, ele)
 
   const fd = new FormData()
 

@@ -1,4 +1,4 @@
-import { pluginArgs } from "../../src/types.js";
+import { pluginArgs } from "../types.js";
 
 export async function auHref(plugIn: Partial<pluginArgs>, args) {
   const auHref = plugIn.ele.getAttribute('au-href')
