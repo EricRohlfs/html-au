@@ -3,7 +3,7 @@
   "version": "1.0.11",
   "description": "HTML driven reactivity with customElements",
   "author": "Eric Rohlfs",
-  "main": "dist/js/index.js",
+  "main": "./dist/js/index.js",
   "scripts": {
     "build": "tsc --project tsconfig.json & rollup --config ./rollup.browser.cfg & rollup --config ./rollup.karma.cfg & terser ./dist/browser/js/index.js -o ./dist/browser/js/index.min.js --compress ecma=2015,computed_props=false",
     "dev": "rollup --config ./rollup.browser.cfg --watch",
