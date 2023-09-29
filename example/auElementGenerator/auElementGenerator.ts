@@ -28,7 +28,7 @@ export class AuElementGenerator extends HTMLElement{
 
   addElementNameButtons(frag){
     const target = frag.querySelector(':scope label[for=elementname] + div')
-    const eles = ['div', 'button','span', 'form'];
+    const eles = ['div', 'button','span', 'form','input'];
     eles.forEach(name =>{
       const x = html`<button
       au-host="closest element-generator"
@@ -114,10 +114,17 @@ export class AuElementGenerator extends HTMLElement{
             p.details{
               font-size:smaller;
             }
+
+
+            textarea{
+              width:100%;
+              height: 130px;
+            }
         </style>
 
         <div class="container">
             <h3>AU Element Generator</h3>
+            <p>There are more au-attributes than are demonstrated here such as au-include.</p>
             <div
               au-trigger="input"
               au-target="closest element-generator"
@@ -167,13 +174,13 @@ export class AuElementGenerator extends HTMLElement{
                 </div>
                 <div>
 <textarea rows="10">
-&lt; ${this.model.elementname}
+&lt;${this.model.elementname}
   au-trigger="${this.model.eventname}"
   au-target="${this.model.targetselector}"
   au-ced="${this.model.cedname}"
   au-swap="${this.model.swap}"
-  &gt;
-  &lt;/${this.model.elementname}&gt;
+  &gt; Click Here
+&lt;/${this.model.elementname}&gt;
 </textarea>
                 </div>
               <div try-it>
