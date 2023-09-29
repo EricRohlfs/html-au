@@ -12,7 +12,7 @@ defineElement('hello-msg', HelloWorldDiv,'div')
 auObserver(document.body, defaultConfig);
 
 const pageLayout = html`
-  <h1>Examples</h1>
+  <h1>Examples Scratchpad </h1>
   <nav>
     <button
       au-href="use au-ced"

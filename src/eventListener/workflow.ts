@@ -30,7 +30,7 @@ export async function workflow(wf: workflowArgs) {
 
   const auMeta = await getAuMeta(ele, initialMeta, auConfig)
 
-  if(auMeta.auCed.raw === 'patch'){
+  if (auMeta.auCed.raw === 'patch') {
     auCedPatchWorkflow(wf, ele, auMeta)
     return;
   }
@@ -57,8 +57,16 @@ export async function workflow(wf: workflowArgs) {
     // strategy: to just attach the data that is requested. Might be overkill and should just attach both regardless.
     const hasBody = cedEle.hasOwnProperty('body')
     const hasModel = cedEle.hasOwnProperty('model')
-    if (hasBody) { plugInArgs.cedEle.body = fd }
-    if (hasModel) { plugInArgs.cedEle.model = Object.fromEntries(fd.entries()) }
+    if (hasBody) {
+      for (const [key, val] of fd.entries()) {
+        (plugInArgs.cedEle.body as FormData).set(key, val);
+      }
+    }
+    if (hasModel) {
+      for (const [key, val] of fd.entries()) {
+        plugInArgs.cedEle.model[key] = val;
+      }
+    }
     if (!hasBody && !hasModel) {
       throw new Error('Using attribute au-ced="post ..." without a property of body or model on the target component. Either add body or model to the component, or remove the post hint.')
     }

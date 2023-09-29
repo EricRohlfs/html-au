@@ -4,7 +4,7 @@ import { auHref } from "./plugins/auHref.js";
 import { workflow } from "./eventListener/workflow.js";
 import { getJson, postJson } from "./fetcher.js";
 import { auConfigType, pluginDefinition } from "./types.js";
-import { preserveFocus } from "./plugins/preserveFocus.js";
+import { preserveFocus, setCurrentValue } from "./plugins/preserveFocus.js";
 
 const auHrefPlugin = {
   name:'auHref',
@@ -18,9 +18,10 @@ const auHrefPlugin = {
 const preserveFocusPlugin = {
   name:'preserveFocus',
   when:'end',
+  preflight: setCurrentValue,
   func: preserveFocus,
   args:undefined
-}
+} as pluginDefinition
 
 // for now the assumption is that all responses will be json 
 // you can send data to the server as FormData or json, but the response should be json

@@ -31,7 +31,9 @@ export async function eventListenerBuilder(ele: auElementType, auConfig:auConfig
     ele,
     auConfig,
     initialMeta
-  }
+  } as eventSetupArgs;
+
+  auConfig._plugins.preflight.forEach(p=>p.preflight(eventSetupArgs));
 
   // safety to limit the types of events or triggers, this will need to change as the api expands
   if (!triggerKeys.includes(initialMeta.trigger)) { return }

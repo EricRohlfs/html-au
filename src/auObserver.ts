@@ -25,7 +25,8 @@ export function _auObserver(ele:HTMLElement, auConfig:auConfigType){
   if(!Object.isFrozen(auConfig)){
     // organize plugins once to improve performance
     auConfig._plugins = {
-      atEnd:  auConfig.plugins.filter(p=>p.when === 'end')
+      atEnd:  auConfig.plugins.filter(p=>p.when === 'end'),
+      preflight: auConfig.plugins.filter(p=>p.preflight !== undefined)
     }
     Object.freeze(auConfig);
   }

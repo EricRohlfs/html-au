@@ -52,6 +52,8 @@ export type auCedEle = HTMLElement & {
   body?: unknown
   model?: unknown
   auMeta?: auMetaType
+  name?:string
+  value?:string
 }
 
 export type auConfigType = {
@@ -72,6 +74,7 @@ export type auConfigType = {
   plugins: Array<pluginDefinition>
   _plugins: {
     atEnd: Array<pluginDefinition>
+    preflight:Array<pluginDefinition>
   }
 }
 
@@ -88,6 +91,7 @@ export type pluginArgs = {
 }
 
 export type eventSetupArgs = {
+  // the element to setup listeners on
   ele: auElementType,
   // cmd: string,
   initialMeta: Partial<auMetaType>,
@@ -105,6 +109,7 @@ export type workflowArgs = eventSetupArgs & {
 export type pluginDefinition = {
   name: string
   when: string
+  preflight:(args:eventSetupArgs)=>void
   func: (pi: pluginArgs, args: any) => Promise<any>
   args: any
 }

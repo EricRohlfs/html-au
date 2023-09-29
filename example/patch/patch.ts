@@ -3,15 +3,15 @@ import { createElement, defineElement, html } from '../../src/index.js'
 const PATCH_EXAMPLE = 'patch-example';
 
 export class PatchExample extends HTMLElement {
-  model = {
-    colors: [] as Array<string>,
-    new_color: "",
-    favorite_color: null,
-    _event_target_tagname: null,
-    _event_target_name: null,
-    _event_target_value: null,
-    counter:0
-  }
+ model = {
+  colors: [] as Array<string>,
+  new_color: "",
+  favorite_color: null,
+  _event_target_tagname: null,
+  _event_target_name: null,
+  _event_target_value: null,
+  counter:0
+}
   constructorCalled: boolean;
   constructor(){
     super();
@@ -23,7 +23,7 @@ export class PatchExample extends HTMLElement {
       this.model.counter = 0
     }
     // get colors from the server
-    if (this.model.colors.length === 0 || this.model._event_target_name === 'start_over') {
+    if (this.model.colors?.length === 0 || this.model?._event_target_name === 'start_over') {
       const req = await fetch('./patch/colors.json')
       this.model.colors = await req.json()
     } else if (this.model._event_target_name === 'add') {
@@ -77,7 +77,7 @@ export class PatchExample extends HTMLElement {
         <button
           au-include="closest ${PATCH_EXAMPLE}"
           au-ced="patch"
-          name="submit"
+          
           >Submit</button>
         <button
           au-include="closest ${PATCH_EXAMPLE}"
@@ -87,7 +87,7 @@ export class PatchExample extends HTMLElement {
       </div>
     `
     const select = frag.querySelector<HTMLSelectElement>(':scope select');
-    this.model.colors.forEach(color => {
+    this.model?.colors?.forEach(color => {
       const selected = (this.model.favorite_color === color);
       const opt = createElement<HTMLOptionElement>({
         tagName: 'option',
