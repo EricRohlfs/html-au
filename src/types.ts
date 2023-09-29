@@ -41,6 +41,8 @@ export type auElementType = {
   body?: FormData
   model?: any
   attributes: auAttributeTypes
+  name:string|undefined
+  value:string|undefined
   // auPreviousTree: DocumentFragment
   connectedCallback?:()=>void
 } & HTMLElement

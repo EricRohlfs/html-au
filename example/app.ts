@@ -5,6 +5,7 @@ import './dialog/dialogButtons.js'
 import { HelloWorldDiv } from './basic/helloWorld.js';
 import './patch/patch.js';
 import './store/store.js'
+import './auElementGenerator/auElementGenerator.js'
 
 defineElement('hello-msg', HelloWorldDiv,'div')
 
@@ -72,7 +73,13 @@ const pageLayout = html`
       au-target="main"
       au-swap="innerHTML"
       >Simple Store<a>
-      
+    
+      <a 
+      href="#element-generator"
+      au-ced="element-generator"
+      au-target="main"
+      au-swap="innerHTML"
+      >AU Element Generator<a>
       
   </nav>
   <main></main>

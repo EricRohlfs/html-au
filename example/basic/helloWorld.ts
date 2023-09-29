@@ -1,7 +1,7 @@
 import { html } from '../../src/utils/index.js'
 import {idGen} from './idGen.js';
 export class HelloWorld extends HTMLElement {
-
+  
   connectedCallback(){
     const frag = html`<div
       au-ced='get hello-message?msg=click again'
